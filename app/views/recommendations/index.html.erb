@@ -3,7 +3,7 @@
 
 <% @recommendations.each do |recommendation| %>
   <ul>
-    <li><%= recommendation.name %></li>
+    <li><%= link_to recommendation.name, recommendation_path(recommendation)  %></li>
     <%= recommendation.user.user_name %>
     <%= recommendation.description %>
     <%= recommendation.rating %>
