@@ -20,7 +20,8 @@ User.create!(
   description = Faker::Restaurant.description
 
   # Fetch a random image URL from Unsplash
-  image_url = "https://source.unsplash.com/random/?restaurant"
+  random_seed = SecureRandom.uuid
+  image_url = "https://source.unsplash.com/random/?restaurant&#{random_seed}"
 
   # Create a new recommendation record
   Recommendation.create!(
