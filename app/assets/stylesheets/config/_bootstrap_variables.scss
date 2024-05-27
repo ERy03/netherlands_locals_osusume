@@ -6,20 +6,20 @@
 
 // General style
 $font-family-sans-serif: $body-font;
-$headings-font-family:   $headers-font;
-$body-bg:                $light-gray;
-$font-size-base:         1rem;
+$headings-font-family: $headers-font;
+$body-bg: $light-gray;
+$font-size-base: 1rem;
 
 // Colors
 $body-color: $gray;
-$primary:    $blue;
-$success:    $green;
-$info:       $yellow;
-$danger:     $red;
-$warning:    $orange;
+$primary: $blue;
+$success: $green;
+$info: $yellow;
+$danger: $red;
+$warning: $orange;
 
 // Buttons & inputs' radius
-$border-radius:    2px;
+$border-radius: 2px;
 $border-radius-lg: 2px;
 $border-radius-sm: 2px;
 
@@ -27,3 +27,12 @@ $border-radius-sm: 2px;
 
 // Card
 $card-border-width: 0px;
+$card-spacer-x: 0px;
+$card-title-spacer-y: 0px;
+
+$position-values: (
+  0: 0,
+  3: 3%,
+  50: 50%,
+  100: 100%
+);
