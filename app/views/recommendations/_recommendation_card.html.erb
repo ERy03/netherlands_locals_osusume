@@ -1,5 +1,5 @@
 <div class="col">
-  <div class="card h-100">
+  <div class="card h-100" data-controller="heart-icon">
     <!-- Use a container div for the image to apply aspect ratio -->
     <div class="card-img-container">
       <!-- Add aspect-ratio class to maintain aspect ratio -->
@@ -9,11 +9,27 @@
       <% else %>
         <%= image_tag "#{recommendation.recommendation_type}.png", class: "card-img-top object-fit-cover bg-white" %>
       <% end %>
+      <%# Check if it was uploaded recently %>
+      <% if recommendation.created_at >= 1.week.ago%>
+        <span class="new-badge badge rounded-pill position-absolute top-3 start-3 text-bg-light fw-semibold px-3 py-2">
+          New
+        </span>
+        <%# TODO: add click functionality to add to favorites %>
+        <i data-heart-icon-target="heartIcon" class="fa-sharp fa-regular fa-heart fs-5 position-absolute top-3 end-3" data-action="mouseover->heart-icon#hover mouseout->heart-icon#unhover"></i>
+      <% end %>
     </div>
     <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+      <div class="d-flex justify-content-between gap-1 mb-1">
+        <h5 class="card-title text-truncate"><%= recommendation.name %></h5>
+        <div class="d-flex gap-1 align-items-center">
+          <i class="fa-sharp fa-solid fa-star"></i>
+          <p><%= recommendation.rating %></p>
+        </div>
+      </div>
+      <p class="card-text">
+        <span class="badge rounded-pill fw-normal">
+          <%= recommendation.recommendation_type %></span>
+      </p>
     </div>
   </div>
 </div>
-<%#  %>
