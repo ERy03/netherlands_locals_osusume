@@ -4,6 +4,9 @@ class RecommendationsController < ApplicationController
 
   def index
     @recommendations = Recommendation.all
+    if params[:query].present?
+        @recommendations = @recommendations.search_by_name(params[:query])
+    end
   end
 
   def show
