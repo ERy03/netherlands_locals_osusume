@@ -1,6 +1,7 @@
 <div class="container-fluid">
   <h1>Pages#home</h1>
   <p>Find me in app/views/pages/home.html.erb</p>
+  <%= render "search_bar", recommendations: @recommendations %>
   <div class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-4">
     <% @recommendations.each do |recommendation| %>
       <%= render "recommendation_card", recommendation: recommendation %>
