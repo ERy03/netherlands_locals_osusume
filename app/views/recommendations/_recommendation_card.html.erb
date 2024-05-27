@@ -1,0 +1,38 @@
+<div class="col">
+  <div class="card h-100" data-controller="heart-icon">
+    <!-- Use a container div for the image to apply aspect ratio -->
+    <div class="card-img-container">
+      <!-- Add aspect-ratio class to maintain aspect ratio -->
+      <% if recommendation.image_url %>
+        <% puts recommendation.recommendation_type %>
+        <%= image_tag "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Restaurant_-TCH.jpg/1200px-Restaurant_-TCH.jpg", class: "card-img-top object-fit-cover",  alt: recommendation.name %>
+      <% else %>
+        <%= image_tag "#{recommendation.recommendation_type}.png", class: "card-img-top object-fit-cover bg-white" %>
+      <% end %>
+      <%# Check if it was uploaded recently %>
+      <% if recommendation.created_at >= 1.week.ago%>
+        <span class="new-badge badge rounded-pill position-absolute top-3 start-3 text-bg-light fw-semibold px-3 py-2">
+          New
+        </span>
+        <%# TODO: add click functionality to add to favorites %>
+        <a class="text-decoration-none">
+          <i data-heart-icon-target="heartIcon" class="fa-sharp fa-regular fa-heart fs-5 position-absolute top-3 end-3 z-2" data-action="mouseover->heart-icon#hover mouseout->heart-icon#unhover click->heart-icon#click"></i>
+        </a>
+      <% end %>
+    </div>
+    <div class="card-body">
+      <div class="d-flex justify-content-between gap-1 mb-1">
+        <h5 class="card-title text-truncate"><%= recommendation.name %></h5>
+        <div class="d-flex gap-1 align-items-center">
+          <i class="fa-sharp fa-solid fa-star"></i>
+          <p><%= recommendation.rating %></p>
+        </div>
+      </div>
+      <p class="card-text">
+        <span class="badge rounded-pill fw-normal">
+          <%= recommendation.recommendation_type %></span>
+      </p>
+    </div>
+    <%= link_to "", recommendation_path(recommendation), class: "position-absolute top-0 bottom-0 start-0 w-100" %>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+/* CSS to maintain aspect ratio */
+.card-img-container {
+  position: relative;
+  height: 0;
+  padding-top: 100%;
+}
+
+.card-img-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  object-position: center;
+}
+
+.card p {
+  margin-bottom: 0px;
+}
+
+.badge {
+  background-color: rgba($color: #c9c9c9, $alpha: 0.5);
+  color: black;
+}
+
+.fa-heart {
+  color: rgb(248, 249, 250);
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.fa-heart:hover{
+  color: rgba(255, 100, 100, 0.869); /* Change color to red on hover */
+  transform: scale(1.1); /* Slightly enlarge the icon on hover */
+}
+
+.card i {
+  font-size: 0.7rem;
+}
+
+.card :hover{
+  cursor: pointer;
+}

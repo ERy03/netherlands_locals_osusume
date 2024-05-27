@@ -1,12 +1,9 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
-
-<% @recommendations.each do |recommendation| %>
-  <ul>
-    <li><%= link_to recommendation.name, recommendation_path(recommendation)  %></li>
-    <%= recommendation.user.user_name %>
-    <%= recommendation.description %>
-    <%= recommendation.rating %>
-    <%= recommendation.recommendation_type %>
-  </ul>
-<% end %>
+<div class="container-fluid">
+  <h1>Pages#home</h1>
+  <p>Find me in app/views/pages/home.html.erb</p>
+  <div class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-4">
+    <% @recommendations.each do |recommendation| %>
+      <%= render "recommendation_card", recommendation: recommendation %>
+    <% end %>
+  </div>
+</div>
