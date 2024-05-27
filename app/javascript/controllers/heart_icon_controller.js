@@ -15,4 +15,9 @@ export default class extends Controller {
     this.heartIconTarget.classList.add("fa-regular");
     this.heartIconTarget.style.color = "";
   }
+
+  // TODO
+  click() {
+    console.log("click")
+  }
 }
