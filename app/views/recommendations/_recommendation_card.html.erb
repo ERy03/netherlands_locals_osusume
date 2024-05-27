@@ -1,5 +1,4 @@
 <div class="col">
-  <%= link_to recommendation_path(recommendation), class: "text-decoration-none" do %>
   <div class="card h-100" data-controller="heart-icon">
     <!-- Use a container div for the image to apply aspect ratio -->
     <div class="card-img-container">
@@ -17,7 +16,7 @@
         </span>
         <%# TODO: add click functionality to add to favorites %>
         <a class="text-decoration-none">
-          <i data-heart-icon-target="heartIcon" class="fa-sharp fa-regular fa-heart fs-5 position-absolute top-3 end-3" data-action="mouseover->heart-icon#hover mouseout->heart-icon#unhover click->heart-icon#click"></i>
+          <i data-heart-icon-target="heartIcon" class="fa-sharp fa-regular fa-heart fs-5 position-absolute top-3 end-3 z-2" data-action="mouseover->heart-icon#hover mouseout->heart-icon#unhover click->heart-icon#click"></i>
         </a>
       <% end %>
     </div>
@@ -34,6 +33,6 @@
           <%= recommendation.recommendation_type %></span>
       </p>
     </div>
+    <%= link_to "", recommendation_path(recommendation), class: "position-absolute top-0 bottom-0 start-0 w-100" %>
   </div>
-  <% end %>
 </div>
