@@ -4,7 +4,6 @@
     <div class="card-img-container">
       <!-- Add aspect-ratio class to maintain aspect ratio -->
       <% if recommendation.image_url %>
-        <% puts recommendation.recommendation_type %>
         <%= image_tag "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Restaurant_-TCH.jpg/1200px-Restaurant_-TCH.jpg", class: "card-img-top object-fit-cover",  alt: recommendation.name %>
       <% else %>
         <%= image_tag "#{recommendation.recommendation_type}.png", class: "card-img-top object-fit-cover bg-white" %>
