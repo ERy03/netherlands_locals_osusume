@@ -1,31 +1,25 @@
 class Recommendation < ApplicationRecord
   belongs_to :user
 
-  include PgSearch::Model
-  pg_search_scope :search_by_name,
-  against: [ :name ],
-  using: {
-    tsearch: { prefix: true }
-  }
-
   before_validation :set_default_visit_date, on: :create
+
+  # Enum for recommendation_type
+  enum recommendation_type: {
+    'Restaurant': 0,
+    'Cafe': 1,
+    'Shop': 2,
+    'Event': 3,
+    'Park': 4,
+    'Bakery': 5,
+    'Market': 6,
+    'Scenery': 7,
+    'Other': 8
+  }
 
   # Validations
   validates :name, presence: true, uniqueness: true
   validates :visit_date, comparison: { less_than_or_equal_to: Date.today }
-
-  # Enum for recommendation_type
-  enum recommendation_type: {
-    'Other': 8,
-    'Scenery': 7,
-    'Market': 6,
-    'Bakery': 5,
-    'Park': 4,
-    'Event': 3,
-    'Shop': 2,
-    'Cafe': 1,
-    'Restaurant': 0
-  }
+  validates :recommendation_type, inclusion: { in: Recommendation.recommendation_types.keys }
 
   private
 
