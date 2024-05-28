@@ -4,8 +4,16 @@ class RecommendationsController < ApplicationController
 
   def index
     @recommendations = Recommendation.all
+    @recommendation_count = Recommendation.count
+
     if params[:query].present?
         @recommendations = @recommendations.search_by_name(params[:query])
+        @recommendation_count = @recommendations.length()
+    end
+
+    respond_to do |format|
+      format.html # Follow regular flow of Rails
+      format.json
     end
   end
 
