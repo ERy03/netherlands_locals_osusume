@@ -1,6 +1,13 @@
 class Recommendation < ApplicationRecord
   belongs_to :user
 
+  include PgSearch::Model
+  pg_search_scope :search_by_name,
+  against: [ :name ],
+  using: {
+    tsearch: { prefix: true }
+  }
+
   before_validation :set_default_visit_date, on: :create
 
   # Validations

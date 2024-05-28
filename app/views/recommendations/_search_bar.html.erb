@@ -1,0 +1,15 @@
+<div class="row justify-content-center">
+  <div class="col-sm-8 my-3">
+    <%= form_with url: recommendations_path, method: :get,  data: { refresh_list_target: 'form', action: "keyup->refresh-list#update" }, class: "d-flex" do %>
+      <%= text_field_tag :query,
+            params[:query],
+            class: "form-control",
+            placeholder: "Type a keyword",
+            data: {
+              refresh_list_target: 'searchInput',
+            }
+      %>
+      <%= submit_tag "Search", name: "", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
