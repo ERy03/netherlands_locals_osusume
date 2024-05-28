@@ -1,0 +1,6 @@
+<select class="form-select" aria-label="Filter" data-refresh-list-target="filter" data-action="change->refresh-list#filter">
+  <option value="" selected>Select a filter</option>
+  <% Recommendation.recommendation_types.each do |key, value| %>
+    <option value="<%= key %>"><%= key %></option>
+  <% end %>
+</select>

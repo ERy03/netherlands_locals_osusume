@@ -3,6 +3,8 @@
   <p>Find me in app/views/pages/home.html.erb</p>
   <div data-controller="refresh-list">
     <%= render "search_bar", recommendations: @recommendations %>
+    <%= render "shared/sort"%>
+    <%= render "shared/filter"%>
     <div data-refresh-list-target="list">
       <%= render "list", recommendations: @recommendations, recommendation_count: @recommendation_count %>
     </div>
