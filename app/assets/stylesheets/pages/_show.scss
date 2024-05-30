@@ -1,0 +1,12 @@
+.image-wrapper {
+  width: 100%;
+  height: 20rem; /* Set your specific height here */
+  overflow: hidden;
+  position: relative;
+}
+
+.image-wrapper .custom-image {
+  width: 100%;
+  height: 100%;
+  object-position: center; /* Centers the image */
+}
