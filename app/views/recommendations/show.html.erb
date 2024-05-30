@@ -1,12 +1,28 @@
-<h1>Show page</h1>
-
-<ul>
-  <li><%= @recommendation.name %> </li>
-  <li><%= @recommendation.user.user_name %> </li>
-  <li><%= @recommendation.description %> </li>
-  <li><%= @recommendation.visit_date %> </li>
-  <li><%= @recommendation.address %> </li>
-  <li><%= @recommendation.recommendation_type %> </li>
-  <li><%= @recommendation.price %> </li>
-  <li><%= @recommendation.rating %> </li>
-</ul>
+<div class="image-wrapper">
+  <%= image_tag "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Restaurant_-TCH.jpg/1200px-Restaurant_-TCH.jpg", class: "rounded object-fit-cover custom-image",  alt: @recommendation.name %>
+</div>
+<div class="container-fluid">
+  <%# Title with star rating %>
+  <div class="d-flex justify-content-between gap-1">
+    <h1 class="mt-2"><%= @recommendation.name %></h1>
+    <div class="d-flex gap-1 align-items-center">
+      <i class="fa-sharp fa-solid fa-star"></i>
+      <p class="mb-0"><%= @recommendation.rating %></p>
+    </div>
+  </div>
+  <%# Pill with recommendation type %>
+  <p>
+    <span class="badge rounded-pill fw-normal mb-0">
+      <%= @recommendation.recommendation_type %></span>
+  </p>
+  <%# Description %>
+  <p><%= @recommendation.description %></p>
+  <ul>
+    <li><%= @recommendation.user.user_name %> </li>
+    <li><%= @recommendation.visit_date %> </li>
+    <li><%= @recommendation.address %> </li>
+    <li><%= @recommendation.recommendation_type %> </li>
+    <li><%= @recommendation.price %> </li>
+    <li><%= @recommendation.rating %> </li>
+  </ul>
+</div>
