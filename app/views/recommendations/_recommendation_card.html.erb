@@ -1,5 +1,5 @@
 <div class="col">
-  <div class="card h-100" data-controller="heart-icon">
+  <div class="card h-100" data-controller="icons">
     <!-- Use a container div for the image to apply aspect ratio -->
     <div class="card-img-container">
       <!-- Add aspect-ratio class to maintain aspect ratio -->
@@ -15,7 +15,7 @@
         </span>
         <%# TODO: add click functionality to add to favorites %>
         <a class="text-decoration-none">
-          <i data-heart-icon-target="heartIcon" class="fa-sharp fa-regular fa-heart fs-5 position-absolute top-3 end-3 z-2" data-action="mouseover->heart-icon#hover mouseout->heart-icon#unhover click->heart-icon#click"></i>
+          <i data-icons-target="heartIcon" class="fa-sharp fa-regular fa-heart fs-5 position-absolute top-3 end-3 z-2" data-action="mouseover->icons#hover mouseout->icons#unhover click->icons#click"></i>
         </a>
       <% end %>
     </div>
