@@ -2,12 +2,18 @@
   <%= image_tag "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Restaurant_-TCH.jpg/1200px-Restaurant_-TCH.jpg", class: "rounded object-fit-cover custom-image",  alt: @recommendation.name %>
 </div>
 <div class="container-fluid">
-  <%# Title with star rating %>
+  <%# Title with like and share %>
   <div class="d-flex justify-content-between gap-1">
     <h1 class="mt-2"><%= @recommendation.name %></h1>
-    <div class="d-flex gap-1 align-items-center">
-      <i class="fa-sharp fa-solid fa-star"></i>
-      <p class="mb-0"><%= @recommendation.rating %></p>
+    <%# Like and Share %>
+    <div class="d-flex justify-content-end gap-3 align-items-center" data-controller="icons">
+      <a class="text-decoration-none text-black-50">
+        <i data-icons-target="heartIcon" class="fa-sharp fa-regular fa-heart" data-action="mouseover->icons#hover mouseout->icons#unhover click->icons#click"></i>
+      </a>
+      <%# TODO: test share is working %>
+      <a class="text-decoration-none text-black-50">
+        <i data-icons-target="shareIcon" class="fa-solid fa-arrow-up-from-bracket" data-action="click->icons#share"></i>
+      </a>
     </div>
   </div>
   <%# Pill with recommendation type %>
@@ -15,14 +21,23 @@
     <span class="badge rounded-pill fw-normal mb-0">
       <%= @recommendation.recommendation_type %></span>
   </p>
+  <%# Ratings %>
+  <div class="d-flex gap-2 align-items-center mb-3">
+    <i class="fa-sharp fa-solid fa-star"></i>
+    <p class="mb-0"><%= @recommendation.rating %></p>
+  </div>
+  <%# Address %>
+  <div class="d-flex gap-2 align-items-center mb-3">
+    <i class="fa-solid fa-location-dot"></i>
+    <%= @recommendation.address %>
+  </div>
   <%# Description %>
   <p><%= @recommendation.description %></p>
-  <ul>
-    <li><%= @recommendation.user.user_name %> </li>
-    <li><%= @recommendation.visit_date %> </li>
-    <li><%= @recommendation.address %> </li>
-    <li><%= @recommendation.recommendation_type %> </li>
-    <li><%= @recommendation.price %> </li>
-    <li><%= @recommendation.rating %> </li>
-  </ul>
+  <%# User and visit date %>
+  <div class="d-flex justify-content-end gap-2 align-items-center mb-3">
+    <%= @recommendation.user.user_name %>
+    <%= @recommendation.visit_date %>
+  </div>
+  <%# Reviews %>
+  <h2>Reviews</h2>
 </div>
