@@ -40,4 +40,15 @@
   </div>
   <%# Reviews %>
   <h2>Reviews</h2>
+  <% if @reviews.any? %>
+    <% @reviews.each do |review| %>
+      <p>- - - - - - - - - - - - - </p>
+      <%= review.text %>
+      <%= review.rating %>
+      <%= review.visit_date %>
+      <p>- - - - - - - - - - - - - </p>
+    <% end %>
+  <% else %>
+    <p>No reviews yet</p>
+  <% end %>
 </div>
