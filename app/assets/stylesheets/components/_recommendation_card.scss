@@ -33,6 +33,7 @@
 }
 
 .fa-heart:hover {
+  cursor: pointer;
   color: rgba(255, 100, 100, 0.869); /* Change color to red on hover */
   transform: scale(1.1); /* Slightly enlarge the icon on hover */
 }
