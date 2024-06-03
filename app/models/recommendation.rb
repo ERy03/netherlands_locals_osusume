@@ -1,5 +1,6 @@
 class Recommendation < ApplicationRecord
   belongs_to :user
+  has_many :reviews, dependent: :destroy
 
   before_validation :set_default_visit_date, on: :create
 

@@ -1,0 +1,26 @@
+<div class="d-flex flex-column mb-4">
+  <div class="d-flex flex-column gap-2 mb-2">
+    <%# top section %>
+    <section>
+      <div class="d-flex flex-row justify-content-start align-items-center gap-2">
+        <div class="avatar-circle">
+          <span class="initial">
+            <%= user_initial(review.user) %>
+          </span>
+        </div>
+        <p class="mb-0"><%= review.user.user_name %></p>
+      </div>
+    </section>
+    <%# stars and date %>
+    <div class="d-flex flex-row gap-1 align-items-center">
+      <div class="d-flex flex-row">
+        <% review.rating.to_i.times do %>
+          <i class="fa-sharp fa-solid fa-star review-star"></i>
+        <% end %>
+      </div>
+      <span class="review-dot">•</span>
+      <p class="review-date mb-0"><%= review.visit_date %></p>
+    </div>
+  </div>
+  <%= review.text %>
+</div>

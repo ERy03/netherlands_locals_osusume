@@ -39,5 +39,15 @@
     <%= @recommendation.visit_date %>
   </div>
   <%# Reviews %>
-  <h2>Reviews</h2>
+  <div class="d-flex flex-row align-items-center justify-content-between mb-4">
+    <h3 class="mb-0">Reviews <span class="review-count">(<%= @reviews.count %>)</span></h3>
+    <i class="fa-regular fa-pen-to-square"></i>
+  </div>
+  <% if @reviews.any? %>
+    <% @reviews.each do |review| %>
+      <%= render "review_card", review: review %>
+    <% end %>
+  <% else %>
+    <p>No reviews yet</p>
+  <% end %>
 </div>

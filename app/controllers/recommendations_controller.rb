@@ -27,6 +27,7 @@ class RecommendationsController < ApplicationController
   end
 
   def show
+    @reviews = @recommendation.reviews.includes(:user).order(created_at: :desc)
   end
 
   private
@@ -78,5 +79,5 @@ class RecommendationsController < ApplicationController
       recommendations
     end
   end
-  
+
 end
