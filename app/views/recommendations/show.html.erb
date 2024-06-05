@@ -39,15 +39,35 @@
     <%= @recommendation.visit_date %>
   </div>
   <%# Reviews %>
-  <div class="d-flex flex-row align-items-center justify-content-between mb-4">
-    <h3 class="mb-0">Reviews <span class="review-count">(<%= @reviews.count %>)</span></h3>
-    <i class="fa-regular fa-pen-to-square"></i>
-  </div>
-  <% if @reviews.any? %>
-    <% @reviews.each do |review| %>
-      <%= render "review_card", review: review %>
+  <div data-controller="insert-in-reviews">
+    <div class="d-flex flex-row align-items-center justify-content-between mb-4">
+      <h3 class="mb-0">Reviews <span class="review-count">(<%= @reviews.count %>)</span></h3>
+      <button class="border-0 bg-transparent" data-action="click->insert-in-reviews#openModal"><i class="fa-regular fa-pen-to-square"></i></button>
+      <%# Test modal %>
+      <div class="modal" data-insert-in-reviews-target="modal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Add Review</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p>Modal body text goes here.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Submit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% if @reviews.any? %>
+      <% @reviews.each do |review| %>
+        <%= render "review_card", review: review %>
+      <% end %>
+    <% else %>
+      <p>No reviews yet</p>
     <% end %>
-  <% else %>
-    <p>No reviews yet</p>
-  <% end %>
+  </div>
 </div>
