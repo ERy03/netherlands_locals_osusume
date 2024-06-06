@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :recommendations
+  resources :recommendations do
+    resources :reviews, only: [:create]
+  end
   root to: "recommendations#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
