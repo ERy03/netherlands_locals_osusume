@@ -41,9 +41,9 @@
   <%# Reviews %>
   <div data-controller="insert-in-reviews">
     <div class="d-flex flex-row align-items-center justify-content-between mb-4">
-      <h3 class="mb-0">Reviews <span class="review-count">(<%= @reviews.count %>)</span></h3>
+      <h3 class="mb-0">Reviews <span class="review-count" data-insert-in-reviews-target="reviewCount">(<%= @reviews.count %>)</span></h3>
       <button class="border-0 bg-transparent" data-action="click->insert-in-reviews#openModal"><i class="fa-regular fa-pen-to-square"></i></button>
-      <%# Test modal %>
+      <%# modal %>
       <div class="modal" data-insert-in-reviews-target="modal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
@@ -52,32 +52,21 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <%= simple_form_for [@recommendation, @review], remote: true do |f| %>
-                <div class="mb-3">
-                  <%= f.input :text, as: :text, label: 'Review', input_html: { class: 'form-control' } %>
-                </div>
-                <div class="mb-3">
-                  <%= f.input :rating, as: :select, collection: (1..5), required: true, label: "Rating", input_html: { data: { controller: "star-rating" } } %>
-                </div>
-                <div class="mb-3">
-                  <%= f.input :visit_date, as: :string, label: 'Visit Date', input_html: { data: { controller: "datepicker" } } %>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <%= f.button :submit, 'Submit', class: 'btn btn-primary' %>
-              <% end %>
+              <%# error message %>
+              <div data-insert-in-reviews-target="error" class="alert alert-danger d-none fade show" role="alert"></div>
+              <%# form %>
+              <%= render partial: "recommendations/review_form", locals: { recommendation: @recommendation, review: @review } %>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary" data-action="insert-in-reviews#send">Submit</button>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <% if @reviews.any? %>
-      <% @reviews.each do |review| %>
-        <%= render "review_card", review: review %>
-      <% end %>
-    <% else %>
-      <p>No reviews yet</p>
-    <% end %>
+    <div data-insert-in-reviews-target="reviews">
+      <%= render "review_list", reviews: @reviews  %>
+    </div>
   </div>
 </div>
