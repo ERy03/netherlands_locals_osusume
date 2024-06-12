@@ -7,6 +7,7 @@ class Review < ApplicationRecord
   validates :text, presence: true, length: { minimum: 10, maximum: 1000 }
   validates :rating, presence: true, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 5 }
   validates :visit_date, comparison: { less_than_or_equal_to: Date.today }
+  validates :user_id, uniqueness: { scope: :recommendation_id, message: "You have already submitted a review for this recommendation" }
 
   private
 
