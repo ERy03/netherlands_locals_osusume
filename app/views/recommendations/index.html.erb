@@ -1,6 +1,7 @@
 <div class="container-fluid">
-  <h1>Pages#home</h1>
-  <p>Find me in app/views/pages/home.html.erb</p>
+  <div class="d-flex justify-content-center">
+    <%= image_tag "osusume_logo.png", class: "responsive-img"%>
+  </div>
   <div data-controller="refresh-list">
     <%= render "search_bar", recommendations: @recommendations %>
     <%= render "shared/sort"%>
