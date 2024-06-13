@@ -45,7 +45,7 @@ export default class extends Controller {
           );
           this.modalElement.hide();
           this.updateReviewCount(data.new_review_count);
-          this.clearForm(data.FormData);
+          this.clearForm();
         }
       })
       .catch((error) => {
