@@ -7,6 +7,8 @@ databases:
 services:
   - type: web
     name: netherland-osusume
+    repo: https://github.com/ERy03/netherlands_locals_osusume
+    branch: feat#_deploy
     runtime: ruby
     plan: free
     buildCommand: "./bin/render-build.sh"
