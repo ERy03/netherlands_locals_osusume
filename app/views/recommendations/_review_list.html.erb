@@ -1,0 +1,5 @@
+<% if @reviews.any? %>
+  <% @reviews.each do |review| %>
+    <%= render "review_card", review: review %>
+  <% end %>
+<% end %>
