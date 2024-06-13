@@ -1,12 +1,12 @@
 databases:
-  - name: mysite
+  - name: netherland-osusume
     databaseName: mysite
     user: mysite
     plan: free
 
 services:
   - type: web
-    name: mysite
+    name: netherland-osusume
     runtime: ruby
     plan: free
     buildCommand: "./bin/render-build.sh"
