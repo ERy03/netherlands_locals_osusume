@@ -31,6 +31,14 @@ class RecommendationsController < ApplicationController
     @review = Review.new(recommendation: @recommendation)
   end
 
+  def new
+    @recommendation = Recommendation.new
+  end
+
+  def create
+    raise
+  end
+
   private
 
   def set_recommendation
