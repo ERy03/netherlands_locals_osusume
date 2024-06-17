@@ -6,9 +6,11 @@
         <%= simple_form_for @recommendation do |f| %>
           <%= f.input :name, label: "Title", required: true %>
           <%= f.input :recommendation_type, as: :select, collection: Recommendation.recommendation_types.keys.map { |k| [k.humanize, k] }, label: "Type", required: true %>
-          <%= f.input :price, label: "Price Range" %>
+          <%= f.input :price, as: :select, collection: Recommendation.prices.keys.map { |k, v| [k, Recommendation.prices[v]] }, label: "Price" %>
           <%= f.input :description, as: :text, label: 'Description', input_html: { maxlength: 1000 } %>
           <%= f.input :address, as: :string, label: 'Address', hint: "You can copy paste the address from Google maps" %>
+          <%= f.input :website_url, label: "Website URL" %>
+          <%= f.input :instagram_url, label: "Instagram URL" %>
           <%= f.input :visit_date, as: :string, label: 'Visit Date', input_html: { data: { controller: "datepicker" } } %>
           <%= f.submit "Create", class: 'btn btn-primary' %>
         <% end %>
