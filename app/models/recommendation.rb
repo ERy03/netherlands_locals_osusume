@@ -17,12 +17,22 @@ class Recommendation < ApplicationRecord
     'Other': 8
   }
 
+  # Enum for price
+  enum price: {
+    'Free': 0,
+    '€1-10': 1,
+    '€10-30': 2,
+    '€30+': 3
+  }
+
   # Validations
   validates :description, presence: true, length: { minimum: 10, maximum: 1000 }
   validates :rating, presence: true
   validates :name, presence: true, uniqueness: true
-  validates :visit_date, comparison: { less_than_or_equal_to: Date.today }
-  validates :recommendation_type, inclusion: { in: Recommendation.recommendation_types.keys }
+  validates :website_url, format: URI::regexp(%w[http https]), allow_blank: true
+  validates :instagram_url, format: URI::regexp(%w[http https]), allow_blank: true
+  validates :visit_date, presence: true, comparison: { less_than_or_equal_to: Date.today }
+  validates :recommendation_type, inclusion: { in: Recommendation.recommendation_types.keys }, presence: true
 
   private
 
