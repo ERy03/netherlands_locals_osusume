@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_11_155303) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_14_222951) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,11 +21,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_11_155303) do
     t.date "visit_date"
     t.string "address"
     t.integer "recommendation_type"
-    t.float "price"
     t.float "rating"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "image_url"
+    t.string "website_url"
+    t.string "instagram_url"
+    t.integer "price"
     t.index ["user_id"], name: "index_recommendations_on_user_id"
   end
 

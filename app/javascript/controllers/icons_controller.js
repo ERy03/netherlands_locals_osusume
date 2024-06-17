@@ -21,18 +21,22 @@ export default class extends Controller {
     console.log("click");
   }
 
-  async share() {
+  async share(e) {
+    e.preventDefault();
+
     const url = window.location.href;
-    console.log(document.title);
-    if (navigator.share) {
+    const title = document.title;
+
+    const shareData = {
+      title: title,
+      text: "I found a new Ossume!",
+      url: url,
+    };
+
+    if (navigator.canShare) {
       try {
-        await navigator
-          .share({
-            title: "Check this out!",
-            text: "I found a new Ossume we could try out!",
-            url: url,
-          });
-          console.log("Successfully shared");
+        await navigator.share(shareData);
+        console.log("Successfully shared");
       } catch (error) {
         console.error("Error sharing", error);
       }

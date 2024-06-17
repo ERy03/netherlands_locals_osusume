@@ -31,7 +31,25 @@ class RecommendationsController < ApplicationController
     @review = Review.new(recommendation: @recommendation)
   end
 
+  def new
+    @recommendation = Recommendation.new
+  end
+
+  def create
+    @recommendation = Recommendation.new(recommendation_params)
+    @recommendation.user = current_user
+    if @recommendation.save
+      redirect_to recommendation_path(@recommendation)
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
   private
+
+  def recommendation_params
+    params.require(:recommendation).permit(:name, :description, :address, :visit_date, :recommendation_type, :website_url, :instagram_url, :price)
+  end
 
   def set_recommendation
     @recommendation = Recommendation.find(params[:id])
