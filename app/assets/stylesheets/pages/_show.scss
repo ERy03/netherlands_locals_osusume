@@ -19,12 +19,14 @@
 
 .fa-arrow-up-from-bracket,
 .fa-pen-to-square,
-.fa-trash-can {
+.fa-trash-can,
+.bi-pencil {
   transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .fa-arrow-up-from-bracket:hover,
-.fa-pen-to-square:hover {
+.fa-pen-to-square:hover,
+.bi-pencil:hover {
   color: rgba(0, 0, 0, 1);
   cursor: pointer;
   transform: scale(1.1); /* Slightly enlarge the icon on hover */
@@ -33,5 +35,5 @@
 .fa-trash-can:hover {
   color: rgb(255, 0, 0);
   cursor: pointer;
-  transform: scale(1.1); 
+  transform: scale(1.1);
 }
