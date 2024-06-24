@@ -42,6 +42,14 @@
     <%= @recommendation.user.user_name %>
     <%= @recommendation.visit_date %>
   </div>
+  <%# Delete %>
+  <% if @is_created_by_current_user %>
+    <div class="d-flex justify-content-end align-items-center mb-3">
+      <%= link_to recommendation_path, data: {turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this Osusume?"}, class: "text-decoration-none text-danger" do %>
+        <i class="fa-regular fa-trash-can"></i>
+      <% end %>
+    </div>
+  <% end %>
   <%# Reviews %>
   <div data-controller="insert-in-reviews">
     <div class="d-flex flex-row align-items-center justify-content-between mb-4">

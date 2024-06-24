@@ -1,6 +1,7 @@
 class RecommendationsController < ApplicationController
   skip_before_action :authenticate_user!, only: [ :index, :show]
-  before_action :set_recommendation, only: [:show]
+  before_action :set_recommendation, only: [:show, :destroy]
+  before_action :authorize_user!, only: [:destroy]
 
   def index
     @recommendations = Recommendation.all
@@ -46,6 +47,15 @@ class RecommendationsController < ApplicationController
     end
   end
 
+  def destroy
+    if @recommendation.photo.attached?
+      @recommendation.photo.purge
+    end
+
+    @recommendation.destroy
+    redirect_to recommendations_path, status: :see_other
+  end
+
   private
 
   def recommendation_params
@@ -54,6 +64,13 @@ class RecommendationsController < ApplicationController
 
   def set_recommendation
     @recommendation = Recommendation.find(params[:id])
+    @is_created_by_current_user = @recommendation.user == current_user
+  end
+
+  def authorize_user!
+    unless @is_created_by_current_user
+      redirect_to recommendation_path(@recommendation), alert: "You are not authorized to perform this action."
+    end
   end
 
   def sort_recommendations(recommendations, sort)
