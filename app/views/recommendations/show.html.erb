@@ -1,5 +1,9 @@
 <div class="image-wrapper">
-  <%= image_tag "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Restaurant_-TCH.jpg/1200px-Restaurant_-TCH.jpg", class: "rounded object-fit-cover custom-image",  alt: @recommendation.name %>
+  <% if @recommendation.photo.attached? %>
+    <%= cl_image_tag @recommendation.photo.key, width: 1000, crop: "scale", class: "rounded object-fit-cover custom-image",  alt: @recommendation.name %>
+  <% else %>
+    <%= image_tag "#{@recommendation.recommendation_type}.png", class: "rounded object-fit-cover custom-image",  alt: @recommendation.name %>
+  <% end %>
 </div>
 <div class="container-fluid">
   <%# Title with like and share %>

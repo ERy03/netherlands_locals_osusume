@@ -1,4 +1,5 @@
 class Recommendation < ApplicationRecord
+  has_one_attached :photo
   belongs_to :user
   has_many :reviews, dependent: :destroy
 
@@ -34,7 +35,21 @@ class Recommendation < ApplicationRecord
   validates :visit_date, presence: true, comparison: { less_than_or_equal_to: Date.today }
   validates :recommendation_type, inclusion: { in: Recommendation.recommendation_types.keys }, presence: true
 
+  validate :correct_photo_mime_type, :photo_size_validation
+
   private
+
+  def correct_photo_mime_type
+    if photo.attached? && !photo.content_type.in?(%w(image/jpeg image/png image/heic image/heif image/avif))
+      errors.add(:photo, 'must be a JPEG, PNG, HEIF or HEIC')
+    end
+  end
+
+  def photo_size_validation
+    if photo.attached? && photo.byte_size > 5.megabytes
+      errors.add(:photo, "should be less than 5MB")
+    end
+  end
 
   def set_default_values
     self.rating ||= 5
