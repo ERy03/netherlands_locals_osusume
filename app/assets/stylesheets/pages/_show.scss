@@ -5,6 +5,12 @@
   position: relative;
 }
 
+@media (min-width: 768px) {
+  .image-wrapper {
+    height: 40rem;
+  }
+}
+
 .image-wrapper .custom-image {
   width: 100%;
   height: 100%;
