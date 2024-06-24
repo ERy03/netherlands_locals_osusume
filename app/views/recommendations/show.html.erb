@@ -61,7 +61,7 @@
   <%# Reviews %>
   <div data-controller="insert-in-reviews">
     <div class="d-flex flex-row align-items-center justify-content-between mb-4">
-      <h3 class="mb-0">Reviews <span class="review-count" data-insert-in-reviews-target="reviewCount">(<%= @reviews.count %>)</span></h3>
+      <h3 class="mb-0">Comments <span class="review-count" data-insert-in-reviews-target="reviewCount">(<%= @reviews.count %>)</span></h3>
       <button class="border-0 bg-transparent" data-action="click->insert-in-reviews#openModal"><i class="fa-regular fa-pen-to-square"></i></button>
       <%# modal %>
       <div class="modal" data-insert-in-reviews-target="modal" tabindex="-1">
