@@ -1,6 +1,6 @@
 class RecommendationsController < ApplicationController
   skip_before_action :authenticate_user!, only: [ :index, :show]
-  before_action :set_recommendation, only: [:show, :destroy]
+  before_action :set_recommendation, only: [:show, :destroy, :edit]
   before_action :authorize_user!, only: [:destroy]
 
   def index
@@ -45,6 +45,9 @@ class RecommendationsController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def edit
   end
 
   def destroy
