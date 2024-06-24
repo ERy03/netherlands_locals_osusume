@@ -38,6 +38,7 @@ class RecommendationsController < ApplicationController
   def create
     @recommendation = Recommendation.new(recommendation_params)
     @recommendation.user = current_user
+
     if @recommendation.save
       redirect_to recommendation_path(@recommendation)
     else
@@ -48,7 +49,7 @@ class RecommendationsController < ApplicationController
   private
 
   def recommendation_params
-    params.require(:recommendation).permit(:name, :description, :address, :visit_date, :recommendation_type, :website_url, :instagram_url, :price)
+    params.require(:recommendation).permit(:name, :description, :address, :visit_date, :recommendation_type, :website_url, :instagram_url, :price, :photo)
   end
 
   def set_recommendation

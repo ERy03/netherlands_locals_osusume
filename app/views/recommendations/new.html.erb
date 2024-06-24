@@ -11,6 +11,7 @@
           <%= f.input :address, as: :string, label: 'Address', hint: "You can copy paste the address from Google maps" %>
           <%= f.input :website_url, label: "Website URL" %>
           <%= f.input :instagram_url, label: "Instagram URL" %>
+          <%= f.input :photo, as: :file, input_html: { accept: 'image/jpeg, image/png, image/heic, image/heif, image/heif' } %>
           <%= f.input :visit_date, as: :string, label: 'Visit Date', input_html: { data: { controller: "datepicker" } } %>
           <%= f.submit "Create", class: 'btn btn-primary' %>
         <% end %>
