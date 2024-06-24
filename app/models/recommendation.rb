@@ -32,6 +32,7 @@ class Recommendation < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   validates :website_url, format: URI::regexp(%w[http https]), allow_blank: true
   validates :instagram_url, format: URI::regexp(%w[http https]), allow_blank: true
+  validates :instagram_url, format: { with: /\Ahttps:\/\/.*instagram\.com/ }, allow_blank: true
   validates :visit_date, presence: true, comparison: { less_than_or_equal_to: Date.today }
   validates :recommendation_type, inclusion: { in: Recommendation.recommendation_types.keys }, presence: true
 

@@ -1,7 +1,7 @@
 class RecommendationsController < ApplicationController
   skip_before_action :authenticate_user!, only: [ :index, :show]
-  before_action :set_recommendation, only: [:show, :destroy]
-  before_action :authorize_user!, only: [:destroy]
+  before_action :set_recommendation, only: [:show, :destroy, :edit, :update]
+  before_action :authorize_user!, only: [:edit, :update, :destroy]
 
   def index
     @recommendations = Recommendation.all
@@ -47,13 +47,30 @@ class RecommendationsController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+    if recommendation_params[:photo]
+      # Check if it already has a photo
+      if @recommendation.photo.attached?
+        @recommendation.photo.purge
+      end
+    end
+    if @recommendation.update(recommendation_params)
+      redirect_to recommendation_path(@recommendation), notice: "Osusume was successfully updated."
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   def destroy
     if @recommendation.photo.attached?
       @recommendation.photo.purge
     end
 
     @recommendation.destroy
-    redirect_to recommendations_path, status: :see_other
+    redirect_to recommendations_path, status: :see_other, notice: "Osusume was successfully deleted."
   end
 
   private

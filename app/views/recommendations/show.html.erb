@@ -7,8 +7,16 @@
 </div>
 <div class="container-fluid">
   <%# Title with like and share %>
-  <div class="d-flex justify-content-between gap-1">
-    <h1 class="mt-2"><%= @recommendation.name %></h1>
+  <div class="d-flex justify-content-between">
+    <div class="d-flex gap-3 align-items-center">
+      <h1 class="mt-2"><%= @recommendation.name %></h1>
+      <%# Edit button %>
+      <% if @is_created_by_current_user %>
+        <%= link_to edit_recommendation_path, class: "text-decoration-none text-black-50 fs-5" do %>
+          <i class="bi bi-pencil"></i>
+        <% end %>
+      <% end %>
+    </div>
     <%# Like and Share %>
     <div class="d-flex justify-content-end gap-3 align-items-center" data-controller="icons">
       <a class="text-decoration-none text-black-50">
@@ -53,7 +61,7 @@
   <%# Reviews %>
   <div data-controller="insert-in-reviews">
     <div class="d-flex flex-row align-items-center justify-content-between mb-4">
-      <h3 class="mb-0">Reviews <span class="review-count" data-insert-in-reviews-target="reviewCount">(<%= @reviews.count %>)</span></h3>
+      <h3 class="mb-0">Comments <span class="review-count" data-insert-in-reviews-target="reviewCount">(<%= @reviews.count %>)</span></h3>
       <button class="border-0 bg-transparent" data-action="click->insert-in-reviews#openModal"><i class="fa-regular fa-pen-to-square"></i></button>
       <%# modal %>
       <div class="modal" data-insert-in-reviews-target="modal" tabindex="-1">
