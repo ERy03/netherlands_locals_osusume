@@ -1,1 +1,18 @@
 // Specific CSS for your home-page
+.order .form-select {
+  width: 25%;
+}
+
+.order {
+  margin-top: 0;
+}
+
+@media (min-width: 768px) {
+  .order .form-select {
+    width: auto;
+  }
+
+  .order {
+    margin-top: 2rem;
+  }
+}
