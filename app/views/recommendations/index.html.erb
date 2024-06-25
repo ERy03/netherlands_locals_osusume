@@ -4,15 +4,12 @@
   </div>
   <div data-controller="refresh-list">
     <%= render "search_bar", recommendations: @recommendations %>
-    <%= render "shared/sort"%>
-    <%= render "shared/filter"%>
-    <div class="position-relative">
-      <%= link_to new_recommendation_path, class: "text-decoration-none text-black-50 position-absolute top-0 end-0" do  %>
-        <i class="bi bi-plus-square-fill text-primary"></i>
-      <% end %>
-      <div data-refresh-list-target="list">
-        <%= render "list", recommendations: @recommendations, recommendation_count: @recommendation_count %>
-      </div>
+    <div class="order d-flex gap-2 justify-content-end">
+      <%= render "shared/sort" %>
+      <%= render "shared/filter" %>
+    </div>
+    <div data-refresh-list-target="list">
+      <%= render "list", recommendations: @recommendations, recommendation_count: @recommendation_count %>
     </div>
   </div>
 </div>

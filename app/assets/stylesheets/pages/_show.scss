@@ -20,12 +20,16 @@
 .fa-arrow-up-from-bracket,
 .fa-pen-to-square,
 .fa-trash-can,
+.fa-instagram,
+.fa-earth-europe,
 .bi-pencil {
   transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .fa-arrow-up-from-bracket:hover,
 .fa-pen-to-square:hover,
+.fa-earth-europe:hover,
+.fa-instagram:hover,
 .bi-pencil:hover {
   color: rgba(0, 0, 0, 1);
   cursor: pointer;
@@ -36,4 +40,25 @@
   color: rgb(255, 0, 0);
   cursor: pointer;
   transform: scale(1.1);
+}
+
+.underline-on-hover {
+  position: relative;
+  color: black;
+  text-decoration: none;
+}
+
+.underline-on-hover::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 1px;
+  bottom: -1px;
+  left: 0;
+  background-color: black;
+  transition: width 0.3s ease-in-out;
+}
+
+.underline-on-hover:hover::after {
+  width: 100%;
 }

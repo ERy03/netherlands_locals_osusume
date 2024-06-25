@@ -43,6 +43,20 @@
     <i class="fa-solid fa-location-dot"></i>
     <%= @recommendation.address %>
   </div>
+  <%# Web %>
+  <% if @recommendation.website_url %>
+    <div class="d-flex gap-2 align-items-center mb-3">
+      <i class="fa-solid fa-earth-europe"></i>
+      <%= link_to @recommendation.website_url, @recommendation.website_url, :target => "_blank", class: "underline-on-hover" %>
+    </div>
+  <% end %>
+  <%# Instagram %>
+  <div class="d-flex gap-2 align-items-center mb-3">
+    <i class="fa-brands fa-instagram"></i>
+    <%= link_to @recommendation.instagram_url, @recommendation.instagram_url, :target => "_blank", class: "underline-on-hover"%>
+  </div>
+  <% if @recommendation.instagram_url %>
+  <% end %>
   <%# Description %>
   <p><%= @recommendation.description %></p>
   <%# User and visit date %>
