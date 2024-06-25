@@ -1,12 +1,20 @@
-.navbar-lewagon {
+.navbar-osusume {
   justify-content: space-between;
   background: white;
 }
 
-.navbar-lewagon .navbar-collapse {
+.navbar-osusume .navbar-collapse {
   flex-grow: 0;
 }
 
-.navbar-lewagon .navbar-brand img {
+.navbar-osusume .navbar-brand img {
   width: 40px;
+}
+
+.create-button {
+  transition: transform 0.3s ease;
+}
+
+.create-button:hover {
+  transform: scale(1.05);
 }

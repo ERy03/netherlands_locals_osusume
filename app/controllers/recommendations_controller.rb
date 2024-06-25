@@ -1,6 +1,7 @@
 class RecommendationsController < ApplicationController
   skip_before_action :authenticate_user!, only: [ :index, :show]
-  before_action :set_recommendation, only: [:show]
+  before_action :set_recommendation, only: [:show, :destroy, :edit, :update]
+  before_action :authorize_user!, only: [:edit, :update, :destroy]
 
   def index
     @recommendations = Recommendation.all
@@ -31,10 +32,62 @@ class RecommendationsController < ApplicationController
     @review = Review.new(recommendation: @recommendation)
   end
 
+  def new
+    @recommendation = Recommendation.new
+  end
+
+  def create
+    @recommendation = Recommendation.new(recommendation_params)
+    @recommendation.user = current_user
+
+    if @recommendation.save
+      redirect_to recommendation_path(@recommendation)
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+  end
+
+  def update
+    if recommendation_params[:photo]
+      # Check if it already has a photo
+      if @recommendation.photo.attached?
+        @recommendation.photo.purge
+      end
+    end
+    if @recommendation.update(recommendation_params)
+      redirect_to recommendation_path(@recommendation), notice: "Osusume was successfully updated."
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    if @recommendation.photo.attached?
+      @recommendation.photo.purge
+    end
+
+    @recommendation.destroy
+    redirect_to recommendations_path, status: :see_other, notice: "Osusume was successfully deleted."
+  end
+
   private
+
+  def recommendation_params
+    params.require(:recommendation).permit(:name, :description, :address, :visit_date, :recommendation_type, :website_url, :instagram_url, :price, :photo)
+  end
 
   def set_recommendation
     @recommendation = Recommendation.find(params[:id])
+    @is_created_by_current_user = @recommendation.user == current_user
+  end
+
+  def authorize_user!
+    unless @is_created_by_current_user
+      redirect_to recommendation_path(@recommendation), alert: "You are not authorized to perform this action."
+    end
   end
 
   def sort_recommendations(recommendations, sort)

@@ -56,6 +56,10 @@ export default class extends Controller {
             } else {
               if (errorData.errors) {
                 this.displayErrors(errorData.errors);
+              } else if (errorData.error.includes("sign in")) {
+                // If the error message indicates a sign-in requirement, redirect
+                window.location.href = "/users/sign_in";
+                this.modalElement.hide();
               } else {
                 this.displayErrors(error);
               }

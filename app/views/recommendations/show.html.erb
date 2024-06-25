@@ -1,10 +1,22 @@
 <div class="image-wrapper">
-  <%= image_tag "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Restaurant_-TCH.jpg/1200px-Restaurant_-TCH.jpg", class: "rounded object-fit-cover custom-image",  alt: @recommendation.name %>
+  <% if @recommendation.photo.attached? %>
+    <%= cl_image_tag @recommendation.photo.key, width: 1000, crop: "scale", class: "rounded object-fit-cover custom-image",  alt: @recommendation.name %>
+  <% else %>
+    <%= image_tag "#{@recommendation.recommendation_type}.png", class: "rounded object-fit-cover custom-image",  alt: @recommendation.name %>
+  <% end %>
 </div>
 <div class="container-fluid">
   <%# Title with like and share %>
-  <div class="d-flex justify-content-between gap-1">
-    <h1 class="mt-2"><%= @recommendation.name %></h1>
+  <div class="d-flex justify-content-between">
+    <div class="d-flex gap-3 align-items-center">
+      <h1 class="mt-2"><%= @recommendation.name %></h1>
+      <%# Edit button %>
+      <% if @is_created_by_current_user %>
+        <%= link_to edit_recommendation_path, class: "text-decoration-none text-black-50 fs-5" do %>
+          <i class="bi bi-pencil"></i>
+        <% end %>
+      <% end %>
+    </div>
     <%# Like and Share %>
     <div class="d-flex justify-content-end gap-3 align-items-center" data-controller="icons">
       <a class="text-decoration-none text-black-50">
@@ -31,6 +43,20 @@
     <i class="fa-solid fa-location-dot"></i>
     <%= @recommendation.address %>
   </div>
+  <%# Web %>
+  <% if @recommendation.website_url %>
+    <div class="d-flex gap-2 align-items-center mb-3">
+      <i class="fa-solid fa-earth-europe"></i>
+      <%= link_to @recommendation.website_url, @recommendation.website_url, :target => "_blank", class: "underline-on-hover" %>
+    </div>
+  <% end %>
+  <%# Instagram %>
+  <div class="d-flex gap-2 align-items-center mb-3">
+    <i class="fa-brands fa-instagram"></i>
+    <%= link_to @recommendation.instagram_url, @recommendation.instagram_url, :target => "_blank", class: "underline-on-hover"%>
+  </div>
+  <% if @recommendation.instagram_url %>
+  <% end %>
   <%# Description %>
   <p><%= @recommendation.description %></p>
   <%# User and visit date %>
@@ -38,10 +64,18 @@
     <%= @recommendation.user.user_name %>
     <%= @recommendation.visit_date %>
   </div>
+  <%# Delete %>
+  <% if @is_created_by_current_user %>
+    <div class="d-flex justify-content-end align-items-center mb-3">
+      <%= link_to recommendation_path, data: {turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this Osusume?"}, class: "text-decoration-none text-danger" do %>
+        <i class="fa-regular fa-trash-can"></i>
+      <% end %>
+    </div>
+  <% end %>
   <%# Reviews %>
   <div data-controller="insert-in-reviews">
     <div class="d-flex flex-row align-items-center justify-content-between mb-4">
-      <h3 class="mb-0">Reviews <span class="review-count" data-insert-in-reviews-target="reviewCount">(<%= @reviews.count %>)</span></h3>
+      <h3 class="mb-0">Comments <span class="review-count" data-insert-in-reviews-target="reviewCount">(<%= @reviews.count %>)</span></h3>
       <button class="border-0 bg-transparent" data-action="click->insert-in-reviews#openModal"><i class="fa-regular fa-pen-to-square"></i></button>
       <%# modal %>
       <div class="modal" data-insert-in-reviews-target="modal" tabindex="-1">
