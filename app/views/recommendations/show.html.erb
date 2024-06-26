@@ -51,11 +51,11 @@
     </div>
   <% end %>
   <%# Instagram %>
-  <div class="d-flex gap-2 align-items-center mb-3">
-    <i class="fa-brands fa-instagram"></i>
-    <%= link_to @recommendation.instagram_url, @recommendation.instagram_url, :target => "_blank", class: "underline-on-hover"%>
-  </div>
   <% if @recommendation.instagram_url %>
+    <div class="d-flex gap-2 align-items-center mb-3">
+      <i class="fa-brands fa-instagram"></i>
+      <%= link_to @recommendation.instagram_url, @recommendation.instagram_url, :target => "_blank", class: "underline-on-hover"%>
+    </div>
   <% end %>
   <%# Description %>
   <p><%= @recommendation.description %></p>
