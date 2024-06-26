@@ -47,6 +47,11 @@
     <i class="fa-solid fa-location-dot"></i>
     <%= @recommendation.address %>
   </div>
+  <%# Price %>
+  <div class="d-flex gap-2 align-items-center mb-3">
+    <i class="bi bi-cash-stack"></i>
+    <%= @recommendation.price %>
+  </div>
   <%# Web %>
   <% if @recommendation.website_url %>
     <div class="d-flex gap-2 align-items-center mb-3">
