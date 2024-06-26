@@ -7,8 +7,8 @@
 </div>
 <div class="container-fluid">
   <%# Title with like and share %>
-  <div class="d-flex justify-content-between">
-    <div class="d-flex gap-3 align-items-center">
+  <div class="d-flex flex-wrap justify-content-end">
+    <div class="d-flex flex-grow-1 gap-3 align-items-center">
       <h1 class="mt-2"><%= @recommendation.name %></h1>
       <%# Edit button %>
       <% if @is_created_by_current_user %>
