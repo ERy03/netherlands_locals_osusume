@@ -1,16 +1,16 @@
 <div class="container py-5">
   <div class="row">
-    <div class="col-12 col-md-6 offset-lg-3">
+    <div class="col-12 col-lg-6 offset-lg-3">
       <div class="bg-white rounded p-3 shadow">
         <h3 class="mb-3"><%= form_title %></h3>
         <%= simple_form_for recommendation do |f| %>
           <%= f.input :name, label: "Title", required: true %>
           <%= f.input :recommendation_type, as: :select, collection: Recommendation.recommendation_types.keys.map { |k| [k.humanize, k] }, label: "Type", error: "Recommendation type can't be blank", required: true %>
-          <%= f.input :price, as: :select, collection: Recommendation.prices.keys.map { |k| [k.humanize, k] }, label: "Price" %>
-          <%= f.input :description, as: :text, label: 'Description', input_html: { maxlength: 1000 } %>
-          <%= f.input :address, as: :string, label: 'Address', hint: "You can copy paste the address from Google maps" %>
-          <%= f.input :website_url, label: "Website URL" %>
-          <%= f.input :instagram_url, label: "Instagram URL" %>
+          <%= f.input :price, as: :select, collection: Recommendation.prices.keys.map { |k| [k.humanize, k] }, label: "Price <span style='opacity: 0.5;'>(optional)</span>".html_safe %>
+          <%= f.input :description, as: :text, label: 'Description', input_html: { maxlength: 1000 }, hint: "Tell us why this is your Osusume ⭐️" %>
+          <%= f.input :address, as: :string, label: "Address <span style='opacity: 0.5;'>(optional)</span>".html_safe, hint: "You can copy paste the address from Google maps" %>
+          <%= f.input :website_url, label: "Website URL <span style='opacity: 0.5;'>(optional)</span>".html_safe %>
+          <%= f.input :instagram_url, label: "Instagram URL <span style='opacity: 0.5;'>(optional)</span>".html_safe %>
           <%= f.input :photo, as: :file, input_html: { accept: 'image/jpeg, image/png, image/heic, image/heif, image/heif' } %>
           <% if recommendation.photo.attached? %>
             <%= cl_image_tag recommendation.photo.key, width: 100, crop: "scale", class: "mb-3", alt: recommendation.name %>
