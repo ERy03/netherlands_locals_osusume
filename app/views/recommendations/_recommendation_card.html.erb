@@ -20,12 +20,15 @@
       </a>
     </div>
     <div class="card-body">
-      <div class="d-flex justify-content-between gap-1 mb-1">
-        <h5 class="card-title text-truncate"><%= recommendation.name %></h5>
-        <div class="d-flex gap-1 align-items-center">
-          <i class="fa-sharp fa-solid fa-star"></i>
-          <p><%= recommendation.rating %></p>
-        </div>
+      <div class="d-flex justify-content-between gap-2 mb-1">
+        <h5 class="card-title text-truncate flex-grow-1"><%= recommendation.name %></h5>
+        <%# Only show star and review count when there are reviews for the recommendation %>
+        <% if recommendation.reviews.count != 0 %>
+          <div class="d-flex gap-1 align-items-center flex-shrink-0">
+            <i class="fa-sharp fa-solid fa-star"></i>
+            <p><%= recommendation.rating %>(<%= recommendation.reviews.count %>)</p>
+          </div>
+        <% end %>
       </div>
       <p class="card-text">
         <span class="badge rounded-pill fw-normal">
