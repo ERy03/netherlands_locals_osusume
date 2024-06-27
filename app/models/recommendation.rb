@@ -28,7 +28,7 @@ class Recommendation < ApplicationRecord
 
   # Validations
   validates :description, presence: true, length: { minimum: 10, maximum: 1000 }
-  validates :rating, presence: true
+  validates :rating, numericality: { greater_than_or_equal_to: 1, less_than_or_equal_to: 5 }, allow_nil: true
   validates :name, presence: true, uniqueness: true
   validates :website_url, format: URI::regexp(%w[http https]), allow_blank: true
   validates :instagram_url, format: URI::regexp(%w[http https]), allow_blank: true
@@ -53,7 +53,6 @@ class Recommendation < ApplicationRecord
   end
 
   def set_default_values
-    self.rating ||= 5
     self.visit_date ||= Date.today
   end
 end
