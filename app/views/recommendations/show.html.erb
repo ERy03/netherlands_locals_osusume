@@ -94,7 +94,10 @@
   <section data-controller="insert-in-reviews">
     <div class="d-flex flex-row align-items-center justify-content-between mt-4 mb-4">
       <h3 class="mb-0">Comments <span class="review-count" data-insert-in-reviews-target="reviewCount">(<%= @reviews.count %>)</span></h3>
-      <button class="border-0 p-0 bg-transparent text-decoration-none text-black-50" data-action="click->insert-in-reviews#openModal"><i class="fa-regular fa-pen-to-square"></i></button>
+      <%# Show the add review button onyl if the current user did not create this recommendation %>
+      <% if !@is_created_by_current_user %>
+        <button class="border-0 p-0 bg-transparent text-decoration-none text-black-50" data-action="click->insert-in-reviews#openModal"><i class="fa-regular fa-pen-to-square"></i></button>
+      <% end %>
       <%# modal %>
       <div class="modal" data-insert-in-reviews-target="modal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
