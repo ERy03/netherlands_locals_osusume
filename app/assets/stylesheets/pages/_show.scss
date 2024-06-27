@@ -1,19 +1,60 @@
 .image-wrapper {
-  width: 100%;
-  height: 20rem; /* Set your specific height here */
+  width: 64vw;
+  height: 44vw;
   overflow: hidden;
   position: relative;
+  margin: 35px auto;
+  max-height: 560px;
 }
 
-@media (min-width: 768px) {
+.content-container {
+  width: 64vw;
+  margin: 0 auto;
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media (max-width: 992px) {
+  .content-container {
+    width: 700px;
+  }
   .image-wrapper {
-    height: 40rem;
+    width: 700px;
+    height: 30rem;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media (max-width: 768px) {
+  .content-container {
+    width: 90vw;
+  }
+  .image-wrapper {
+    width: 90vw;
+    margin-top: 25px;
+    margin-bottom: 25px;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media (max-width: 576px) {
+  .content-container {
+    width: 87%;
+  }
+  .image-wrapper {
+    margin: 0;
+    height: 17rem;
+    width: 100%;
+  }
+  .custom-image {
+    border-radius: 0px !important;
   }
 }
 
 .image-wrapper .custom-image {
+  position: absolute;
   width: 100%;
   height: 100%;
+  border-radius: 12px;
   object-position: center; /* Centers the image */
 }
 
@@ -61,4 +102,8 @@
 
 .underline-on-hover:hover::after {
   width: 100%;
+}
+
+.custom-divider {
+  margin: 0;
 }
