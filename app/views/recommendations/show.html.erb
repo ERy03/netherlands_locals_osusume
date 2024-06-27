@@ -36,7 +36,7 @@
   <%# Ratings %>
   <div class="d-flex gap-2 align-items-center mb-3">
     <i class="fa-sharp fa-solid fa-star"></i>
-    <% if @recommendation.reviews.count != 0 %>
+    <% if @recommendation.reviews.count != 0 && !@recommendation.rating.nil? %>
       <p class="mb-0"><%= @recommendation.rating %></p>
     <% else %>
       <p class="mb-0">No reviews yet</p>
