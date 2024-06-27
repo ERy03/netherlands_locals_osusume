@@ -1,12 +1,12 @@
 <div class="image-wrapper">
   <% if @recommendation.photo.attached? %>
-    <%= cl_image_tag @recommendation.photo.key, width: 1000, crop: "scale", class: "rounded object-fit-cover custom-image",  alt: @recommendation.name %>
+    <%= cl_image_tag @recommendation.photo.key, width: 1000, crop: "scale", class: "object-fit-cover custom-image",  alt: @recommendation.name %>
   <% else %>
-    <%= image_tag "#{@recommendation.recommendation_type}.png", class: "rounded object-fit-cover custom-image",  alt: @recommendation.name %>
+    <%= image_tag "#{@recommendation.recommendation_type}.png", class: "object-fit-cover custom-image",  alt: @recommendation.name %>
   <% end %>
 </div>
-<div class="container-fluid">
-  <%# Title with like and share %>
+<%# Title with like and share %>
+<div class="content-container">
   <div class="d-flex flex-wrap justify-content-end">
     <div class="d-flex flex-grow-1 gap-3 align-items-center">
       <h1 class="mt-2"><%= @recommendation.name %></h1>
@@ -85,7 +85,7 @@
   <div data-controller="insert-in-reviews">
     <div class="d-flex flex-row align-items-center justify-content-between mb-4">
       <h3 class="mb-0">Comments <span class="review-count" data-insert-in-reviews-target="reviewCount">(<%= @reviews.count %>)</span></h3>
-      <button class="border-0 bg-transparent text-decoration-none text-black-50" data-action="click->insert-in-reviews#openModal"><i class="fa-regular fa-pen-to-square"></i></button>
+      <button class="border-0 p-0 bg-transparent text-decoration-none text-black-50" data-action="click->insert-in-reviews#openModal"><i class="fa-regular fa-pen-to-square"></i></button>
       <%# modal %>
       <div class="modal" data-insert-in-reviews-target="modal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
