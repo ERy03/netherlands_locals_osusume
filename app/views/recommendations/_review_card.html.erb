@@ -3,12 +3,14 @@
     <%# top section %>
     <section>
       <div class="d-flex flex-row justify-content-start align-items-center gap-2">
-        <div class="avatar-circle">
-          <span class="initial">
-            <%= user_initial(review.user) %>
-          </span>
-        </div>
-        <p class="mb-0"><%= review.user.user_name %></p>
+        <%= link_to profile_path(review.user), class: "text-decoration-none" do %>
+          <div class="avatar-circle">
+            <span class="initial">
+              <%= user_initial(review.user) %>
+            </span>
+          </div>
+        <% end %>
+        <%= link_to review.user.user_name, profile_path(review.user), class: "underline-on-hover mb-0"  %>
       </div>
     </section>
     <%# stars and date %>
