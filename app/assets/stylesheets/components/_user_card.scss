@@ -1,0 +1,34 @@
+.user-card {
+  height: fit-content;
+  max-width: 450px;
+  min-width: 291px;
+  width: 100%;
+  border: none;
+  border-radius: 15px;
+  background-color: white;
+}
+.user-card .avatar-circle {
+  width: 104px;
+  height: 104px;
+  font-size: 50px;
+}
+.user-card-body {
+  padding: 32px;
+}
+
+.fs-small {
+  font-size: 0.9em;
+}
+
+.title-width {
+  max-width: 140px;
+}
+
+@media (max-width: 576px) {
+  .user-card {
+    max-width: 100%;
+  }
+  .title-width {
+  max-width: 120px;
+}
+}

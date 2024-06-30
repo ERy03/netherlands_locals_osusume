@@ -1,0 +1,10 @@
+<div class="content-container">
+  <div class="row">
+    <div class="col-sm-8 col-12">
+      <h2 class="my-5 fw-bold">Reviews by you</h2>
+      <% @reviews.each do |review|  %>
+        <%= render "review_tile", review: review %>
+      <% end %>
+    </div>
+  </div>
+</div>

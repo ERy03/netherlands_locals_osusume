@@ -1,0 +1,25 @@
+<div class="content-container">
+  <div class="d-flex gap-5 flex-sm-row flex-column my-5">
+    <%= render "profile_card" %>
+    <div class="d-flex flex-column gap-3 flex-grow-1">
+      <h2>About <%= @user.user_name.capitalize %></h2>
+      <hr class="custom-divider">
+      <%# User's ossume %>
+      <section class="mt-4">
+        <h4 class="mb-4">Posted Osusume</h4>
+        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
+          <% @recommendations.each do |recommendation| %>
+            <%= render "/recommendations/recommendation_card", recommendation: recommendation %>
+          <% end %>
+        </div>
+      </section>
+      <%# User's review if any %>
+      <% if @user == current_user && @user.reviews.any? %>
+        <hr class="custom-divider">
+        <section class="mt-4">
+          <%= link_to "Reviews you've written", user_reviews_path, class: "underline-on-hover" %>
+        </section>
+      <% end %>
+    </div>
+  </div>
+</div>

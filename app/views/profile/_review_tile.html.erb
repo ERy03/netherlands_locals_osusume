@@ -1,0 +1,29 @@
+<div class="d-flex gap-3">
+  <%= link_to recommendation_path(review.recommendation), class: "text-decoration-none h-fit-content", style: "height: fit-content;" do %>
+    <% if review.recommendation.photo.attached? %>
+      <%= cl_image_tag review.recommendation.photo.key, width: 200, crop: "scale", class: "object-fit-cover review-tile", alt: review.recommendation.name %>
+    <% else %>
+      <%= image_tag "#{review.recommendation.recommendation_type}.png", class: "object-fit-cover bg-white review-tile" %>
+    <% end %>
+  <% end %>
+  <div class="d-flex flex-column">
+    <div class="d-flex flex-column gap-2 mb-2">
+      <%# title section %>
+      <section>
+        <%= link_to review.recommendation.name, recommendation_path(review.recommendation), class: "underline-on-hover fw-medium"  %>
+      </section>
+      <%# stars and date %>
+      <div class="d-flex flex-row gap-1 align-items-center">
+        <div class="d-flex flex-row">
+          <% review.rating.to_i.times do %>
+            <i class="fa-sharp fa-solid fa-star review-star"></i>
+          <% end %>
+        </div>
+        <span class="review-dot">•</span>
+        <p class="review-date mb-0"><%= review.visit_date %></p>
+      </div>
+    </div>
+    <%= review.text %>
+  </div>
+</div>
+<hr class="custom-divider my-4">
