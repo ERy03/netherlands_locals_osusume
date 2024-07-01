@@ -41,12 +41,15 @@ class ReviewsController < ApplicationController
   def destroy
     @recommendation = @review.recommendation
 
-    ActiveRecord::Base.transaction do
-      @review.destroy
-      update_recommendation_rating
+    begin
+      ActiveRecord::Base.transaction do
+        @review.destroy!
+        update_recommendation_rating
+      end
+      redirect_to recommendation_path(@recommendation), status: :see_other, notice: "Review was successfully deleted."
+    rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotDestroyed => e
+      redirect_to recommendation_path(@recommendation), alert: "Failed to delete review: #{e.message}"
     end
-
-    redirect_to recommendation_path(@recommendation), status: :see_other, notice: "Review was successfully deleted."
   end
 
   private
