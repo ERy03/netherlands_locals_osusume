@@ -3,7 +3,7 @@
   <head>
     <title><%= meta_title %></title>
     <meta name="description" content="<%= meta_description %>">
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="keywords" content="Netherlands, travel, local recommendations, hidden spots, Japanese locals, tourist traps, best places to visit, guidebook alternatives, Dutch travel tips, オランダ, オランダ旅行, オランダ現地, オランダおすすめ, オランダガイドブック, オランダ観光客, オランダ観光, オランダ隠れスポット、アムステルダム旅行、アムステルダム">
     <meta property="og:title" content="<%= meta_title %>">
     <meta property="og:type" content="website">
@@ -16,7 +16,9 @@
     <meta name="twitter:title" content="<%= meta_title %>">
     <meta name="twitter:description" content="<%= meta_description %>">
     <meta name="twitter:creator" content="<%= DEFAULT_META["twitter_account"] %>">
+    <meta name="twitter:image:src" content="<%= meta_image %>">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
