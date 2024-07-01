@@ -1,7 +1,7 @@
 <% content_for :meta_title, "#{DEFAULT_META["meta_product_name"]} - #{@recommendation.name}" %>
 <% content_for :meta_description, @recommendation.description %>
 <% if @recommendation.photo.attached? %>
-  <% content_for :meta_image, cl_image_path(@recommendation.photo.key,  width: 1200, height: 630, crop: "scale") %>
+  <% content_for :meta_image, cl_image_path(@recommendation.photo.key,  width: 1200, height: 630, crop: "thumb") %>
 <% end %>
 <div class="image-wrapper">
   <% if @recommendation.photo.attached? %>
