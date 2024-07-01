@@ -1,4 +1,6 @@
 class ReviewsController < ApplicationController
+  before_action :set_review, only: [:edit, :update, :destroy]
+
   def create
     @recommendation = Recommendation.find(params[:recommendation_id])
     # Checks if user has already written a review
@@ -30,7 +32,28 @@ class ReviewsController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+  end
+
+  def destroy
+    @recommendation = @review.recommendation
+
+    ActiveRecord::Base.transaction do
+      @review.destroy
+      update_recommendation_rating
+    end
+
+    redirect_to recommendation_path(@recommendation), status: :see_other, notice: "Review was successfully deleted."
+  end
+
   private
+
+  def set_review
+    @review = Review.find(params[:id])
+  end
 
   def update_recommendation_rating
     @recommendation.update!(rating: @recommendation.reviews.average(:rating).round(2))
