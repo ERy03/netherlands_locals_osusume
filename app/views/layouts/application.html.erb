@@ -1,7 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>NetherlandsLocalsOsusume</title>
+    <title><%= meta_title %></title>
+    <meta name="description" content="<%= meta_description %>">
+    <meta name="keywords" content="Netherlands, travel, local recommendations, hidden spots, Japanese locals, tourist traps, best places to visit, guidebook alternatives, Dutch travel tips, オランダ, オランダ旅行, オランダ現地, オランダおすすめ, オランダガイドブック, オランダ観光客, オランダ観光, オランダ隠れスポット、アムステルダム旅行、アムステルダム">
+    <meta property="og:title" content="<%= meta_title %>" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="<%= request.original_url %>" />
+    <meta property="og:image" content="<%= meta_image %>" />
+    <meta property="og:description" content="<%= meta_description %>" />
+    <meta property="og:site_name" content="<%= meta_title %>" />
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="<%= meta_title %>">
+    <meta name="twitter:description" content="<%= meta_description %>">
+    <meta name="twitter:image:src" content="<%= meta_image %>">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
