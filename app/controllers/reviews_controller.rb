@@ -1,5 +1,6 @@
 class ReviewsController < ApplicationController
   before_action :set_review_and_recommendation, only: [:edit, :update, :destroy]
+  before_action :authorize_user!, only: [:edit, :update, :destroy]
 
   def create
     @recommendation = Recommendation.find(params[:recommendation_id])
@@ -67,6 +68,13 @@ class ReviewsController < ApplicationController
   def set_review_and_recommendation
     @review = Review.find(params[:id])
     @recommendation = @review.recommendation
+  end
+
+
+  def authorize_user!
+    unless @review.user == current_user
+      redirect_to recommendation_path(@recommendation), alert: "You are not authorized to perform this action."
+    end
   end
 
   def update_recommendation_rating
