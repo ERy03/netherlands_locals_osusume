@@ -1,0 +1,28 @@
+.carousel-item {
+  height: 44vw;
+  max-height: 560px;
+}
+
+.carousel-indicators button {
+  border-radius: 50%;
+}
+
+.carousel-control-circle {
+  background-color: rgb(244, 244, 244);
+  border-radius: 50%;
+  display: inherit;
+  padding: 7px;
+  box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
+}
+
+@media (max-width: 992px) {
+  .carousel-item {
+    height: 30rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .carousel-item {
+    height: 17rem;
+  }
+}
