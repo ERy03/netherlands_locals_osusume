@@ -78,7 +78,11 @@ class ReviewsController < ApplicationController
   end
 
   def update_recommendation_rating
-    @recommendation.update!(rating: @recommendation.reviews.average(:rating).round(2))
+    if @recommendation.reviews.any?
+      @recommendation.update!(rating: @recommendation.reviews.average(:rating).round(2))
+    else
+      @recommendation.update!(rating: nil)
+    end
   end
 
   def review_params
