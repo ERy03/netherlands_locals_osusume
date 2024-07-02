@@ -11,6 +11,17 @@
           </div>
         <% end %>
         <%= link_to review.user.user_name, profile_path(review.user), class: "underline-on-hover mb-0"  %>
+        <%# Update and Delete %>
+        <% if review.user == current_user %>
+          <div class="d-flex gap-2 align-items">
+            <%= link_to edit_review_path(review), class: "text-decoration-none text-black-50" do %>
+              <i class="bi bi-pencil"></i>
+            <% end %>
+            <%= link_to review_path(review), data: {turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this Review?"}, class: "text-decoration-none text-danger" do %>
+              <i class="fa-regular fa-trash-can"></i>
+            <% end %>
+          </div>
+        <% end %>
       </div>
     </section>
     <%# stars and date %>

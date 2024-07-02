@@ -2,7 +2,14 @@ import { Controller } from "@hotwired/stimulus";
 
 // Connects to data-controller="insert-in-reviews"
 export default class extends Controller {
-  static targets = ["modal", "reviews", "form", "error", "reviewCount"];
+  static targets = [
+    "modal",
+    "reviews",
+    "form",
+    "error",
+    "reviewCount",
+    "ratingCount",
+  ];
 
   connect() {
     this.modalElement = new bootstrap.Modal(this.modalTarget);
@@ -45,6 +52,7 @@ export default class extends Controller {
           );
           this.modalElement.hide();
           this.updateReviewCount(data.new_review_count);
+          this.updateRatingCount(data.new_rating_count);
           this.clearForm();
         }
       })
@@ -77,6 +85,16 @@ export default class extends Controller {
 
   updateReviewCount(newCount) {
     this.reviewCountTarget.innerText = `(${newCount})`;
+  }
+
+  updateRatingCount(newRating) {
+    if (newRating % 1 === 0) {
+      newRating = newRating.toFixed(1);
+    }
+    const pTag = this.ratingCountTarget.querySelector("p");
+    if (pTag) {
+      pTag.innerText = `${newRating}`;
+    }
   }
 
   clearForm() {
