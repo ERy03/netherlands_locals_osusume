@@ -11,7 +11,7 @@
   <% end %>
 </div>
 <%# Title with like and share %>
-<div class="content-container">
+<div class="content-container" data-controller="insert-in-reviews">
   <div class="d-flex flex-wrap justify-content-end">
     <div class="d-flex flex-grow-1 gap-3 align-items-center">
       <h1 class="mt-2"><%= @recommendation.name %></h1>
@@ -39,7 +39,7 @@
       <%= @recommendation.recommendation_type %></span>
   </p>
   <%# Ratings %>
-  <div class="d-flex gap-2 align-items-center mb-3">
+  <div class="d-flex gap-2 align-items-center mb-3" data-insert-in-reviews-target="ratingCount">
     <i class="fa-sharp fa-solid fa-star"></i>
     <% if @recommendation.reviews.count != 0 && !@recommendation.rating.nil? %>
       <p class="mb-0"><%= @recommendation.rating %></p>
@@ -96,7 +96,7 @@
   </section>
   <hr class="custom-divider">
   <%# Reviews %>
-  <section data-controller="insert-in-reviews">
+  <section>
     <div class="d-flex flex-row align-items-center justify-content-between mt-4 mb-4">
       <h3 class="mb-0">Comments <span class="review-count" data-insert-in-reviews-target="reviewCount">(<%= @reviews.count %>)</span></h3>
       <%# Show the add review button onyl if the current user did not create this recommendation %>
