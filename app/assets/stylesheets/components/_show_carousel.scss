@@ -25,4 +25,21 @@
   .carousel-item {
     height: 17rem;
   }
+  .carousel-indicators button {
+    height: 8px !important;
+    width: 8px !important;
+  }
+  .carousel-control-circle {
+    padding: 5px !important;
+  }
+
+  .carousel-control-prev-icon {
+    height: 1rem !important;
+    width: 1rem !important;
+  }
+
+  .carousel-control-next-icon {
+    height: 1rem !important;
+    width: 1rem !important;
+  }
 }
