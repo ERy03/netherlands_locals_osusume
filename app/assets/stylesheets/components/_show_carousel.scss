@@ -1,4 +1,4 @@
-.carousel-item {
+#carouselExampleIndicators .carousel-item {
   height: 44vw;
   max-height: 560px;
 }
@@ -16,13 +16,13 @@
 }
 
 @media (max-width: 992px) {
-  .carousel-item {
+  #carouselExampleIndicators .carousel-item {
     height: 30rem;
   }
 }
 
 @media (max-width: 576px) {
-  .carousel-item {
+  #carouselExampleIndicators .carousel-item {
     height: 17rem;
   }
   .carousel-indicators button {
