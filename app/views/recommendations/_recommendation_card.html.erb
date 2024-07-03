@@ -1,18 +1,43 @@
 <div class="col">
   <div class="card h-100" data-controller="icons">
     <!-- Use a container div for the image to apply aspect ratio -->
-    <div class="card-img-container">
-      <!-- Add aspect-ratio class to maintain aspect ratio -->
+    <div id="carousel<%= recommendation.id %>" class="carousel slide card-img-container" data-bs-ride="carousel">
+      <%# TODO: check if there are more than 1 image attached %>
+      <%# && @recommendation.photos.length == 1 %>
       <% if recommendation.photo.attached? %>
-        <%= cl_image_tag recommendation.photo.key, width: 800, crop: "scale", class: "card-img-top object-fit-cover", alt: recommendation.name %>
-      <% else %>
-        <%= image_tag "#{recommendation.recommendation_type}.png", class: "card-img-top object-fit-cover bg-white" %>
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
       <% end %>
-      <%# Check if it was uploaded recently %>
-      <% if recommendation.created_at >= 1.week.ago%>
-        <span class="new-badge badge rounded-pill position-absolute top-3 start-3 text-bg-light fw-semibold px-3 py-2">
-          New
-        </span>
+      <div class="carousel-inner">
+        <% if recommendation.photo.attached? %>
+          <div class="carousel-item active">
+            <%= cl_image_tag recommendation.photo.key, width: 800, crop: "scale", class: "d-block object-fit-cover", alt: recommendation.name %>
+          </div>
+        <% else %>
+          <div class="carousel-item active">
+            <%= image_tag "#{recommendation.recommendation_type}.png", class: "d-block object-fit-cover bg-white" %>
+          </div>
+        <% end %>
+        <!-- Add more carousel items here if needed -->
+      </div>
+      <%# TODO: check if there are more than 1 image attached %>
+      <%# && @recommendation.photos.length == 1 %>
+      <% if recommendation.photo.attached? %>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <div class="carousel-control-circle">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </div>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+          <div class="carousel-control-circle">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </div>
+        </button>
       <% end %>
       <%# TODO: add click functionality to add to favorites %>
       <a class="text-decoration-none">

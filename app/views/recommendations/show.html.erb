@@ -4,11 +4,45 @@
   <% content_for :meta_image, cl_image_path(@recommendation.photo.key,  width: 1200, height: 630, crop: "thumb") %>
 <% end %>
 <div class="image-wrapper">
-  <% if @recommendation.photo.attached? %>
-    <%= cl_image_tag @recommendation.photo.key, width: 1000, crop: "scale", class: "object-fit-cover custom-image",  alt: @recommendation.name %>
-  <% else %>
-    <%= image_tag "#{@recommendation.recommendation_type}.png", class: "object-fit-cover custom-image",  alt: @recommendation.name %>
-  <% end %>
+  <div id="carouselExampleIndicators" class="carousel slide">
+    <%# TODO: check if there are more than 1 image attached %>
+    <%# && @recommendation.photos.length == 1 %>
+    <% if @recommendation.photo.attached? %>
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+    <% end %>
+    <div class="carousel-inner">
+      <%# TODO: iterate over the photos %>
+      <% if @recommendation.photo.attached? %>
+        <div class="carousel-item active">
+          <%= cl_image_tag @recommendation.photo.key, width: 1000, crop: "scale", class: "custom-image d-block w-100",  alt: @recommendation.name %>
+        </div>
+      <% else %>
+        <div class="carousel-item active">
+          <%= image_tag "#{@recommendation.recommendation_type}.png", class: "custom-image d-block w-100",  alt: @recommendation.name %>
+        </div>
+      <% end %>
+    </div>
+    <%# TODO: check if there are more than 1 image attached %>
+    <%# && @recommendation.photos.length == 1 %>
+    <% if @recommendation.photo.attached? %>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <div class="carousel-control-circle">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </div>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <div class="carousel-control-circle">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </div>
+      </button>
+    <% end %>
+  </div>
 </div>
 <%# Title with like and share %>
 <div class="content-container" data-controller="insert-in-reviews">
