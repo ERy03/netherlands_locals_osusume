@@ -1,7 +1,7 @@
 <div class="d-flex gap-3">
   <%= link_to recommendation_path(review.recommendation), class: "text-decoration-none h-fit-content", style: "height: fit-content;" do %>
-    <% if review.recommendation.photo.attached? %>
-      <%= cl_image_tag review.recommendation.photo.key, width: 200, crop: "scale", class: "object-fit-cover review-tile", alt: review.recommendation.name %>
+    <% if review.recommendation.photos.attached? %>
+      <%= cl_image_tag review.recommendation.photos[0].key, width: 200, crop: "scale", class: "object-fit-cover review-tile", alt: review.recommendation.name %>
     <% else %>
       <%= image_tag "#{review.recommendation.recommendation_type}.png", class: "object-fit-cover bg-white review-tile" %>
     <% end %>
