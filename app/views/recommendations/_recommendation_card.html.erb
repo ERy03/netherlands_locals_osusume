@@ -1,38 +1,36 @@
 <div class="col">
   <div class="card h-100" data-controller="icons">
-    <!-- Use a container div for the image to apply aspect ratio -->
-    <div id="carousel<%= recommendation.id %>" class="carousel slide card-img-container" data-bs-ride="carousel">
-      <%# TODO: check if there are more than 1 image attached %>
-      <%# && @recommendation.photos.length == 1 %>
-      <% if recommendation.photo.attached? %>
+    <div id="carousel<%= recommendation.id %>" class="carousel slide card-img-container">
+      <%# Show indicators when more than 1 photo are attached %>
+      <% if recommendation.photos.attached? && recommendation.photos.length > 1 %>
         <div class="carousel-indicators">
-          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          <% recommendation.photos.each_with_index do |photo, index| %>
+            <button type="button" data-bs-target="#carousel<%= recommendation.id %>" data-bs-slide-to="<%= index %>" class="<%= 'active' if index == 0 %>" aria-current="<%= 'true' if index == 0 %>" aria-label="Slide <%= index + 1 %>"></button>
+          <% end %>
         </div>
       <% end %>
       <div class="carousel-inner">
-        <% if recommendation.photo.attached? %>
-          <div class="carousel-item active">
-            <%= cl_image_tag recommendation.photo.key, width: 800, crop: "scale", class: "d-block object-fit-cover", alt: recommendation.name %>
-          </div>
+        <% if recommendation.photos.attached? %>
+          <% recommendation.photos.each_with_index do |photo, index| %>
+            <div class="carousel-item <%= 'active' if index == 0 %>">
+              <%= cl_image_tag photo.key, width: 800, crop: "scale", class: "d-block object-fit-cover", alt: recommendation.name %>
+            </div>
+          <% end %>
         <% else %>
           <div class="carousel-item active">
             <%= image_tag "#{recommendation.recommendation_type}.png", class: "d-block object-fit-cover bg-white" %>
           </div>
         <% end %>
-        <!-- Add more carousel items here if needed -->
       </div>
-      <%# TODO: check if there are more than 1 image attached %>
-      <%# && @recommendation.photos.length == 1 %>
-      <% if recommendation.photo.attached? %>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <%# Show controls when more than 1 photo are attached %>
+      <% if recommendation.photos.attached? && recommendation.photos.length > 1 %>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carousel<%= recommendation.id %>" data-bs-slide="prev">
           <div class="carousel-control-circle">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
           </div>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <button class="carousel-control-next" type="button" data-bs-target="#carousel<%= recommendation.id %>" data-bs-slide="next">
           <div class="carousel-control-circle">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
