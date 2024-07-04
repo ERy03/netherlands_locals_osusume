@@ -1,34 +1,33 @@
 <% content_for :meta_title, "#{DEFAULT_META["meta_product_name"]} - #{@recommendation.name}" %>
 <% content_for :meta_description, @recommendation.description %>
-<% if @recommendation.photo.attached? %>
-  <% content_for :meta_image, cl_image_path(@recommendation.photo.key,  width: 1200, height: 630, crop: "thumb") %>
+<% if @recommendation.photos.attached? %>
+  <% content_for :meta_image, cl_image_path(@recommendation.photos[0].key,  width: 1200, height: 630, crop: "thumb") %>
 <% end %>
 <div class="image-wrapper">
+  <%# Show indicators when more than 1 photo are attached %>
   <div id="carouselExampleIndicators" class="carousel slide">
-    <%# TODO: check if there are more than 1 image attached %>
-    <%# && @recommendation.photos.length == 1 %>
-    <% if @recommendation.photo.attached? %>
+    <% if @recommendation.photos.attached? && @recommendation.photos.length > 1  %>
       <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        <% @recommendation.photos.each_with_index do |photo, index| %>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<%= index %>" class="<%= 'active' if index == 0 %>" aria-current="<%= 'true' if index == 0 %>" aria-label="Slide <%= index + 1 %>"></button>
+        <% end %>
       </div>
     <% end %>
     <div class="carousel-inner">
-      <%# TODO: iterate over the photos %>
-      <% if @recommendation.photo.attached? %>
-        <div class="carousel-item active">
-          <%= cl_image_tag @recommendation.photo.key, width: 1000, crop: "scale", class: "custom-image d-block w-100",  alt: @recommendation.name %>
-        </div>
+      <% if @recommendation.photos.attached? %>
+        <% @recommendation.photos.each_with_index do |photo, index| %>
+          <div class="carousel-item <%= 'active' if index == 0 %>">
+            <%= cl_image_tag photo.key, width: 1000, crop: "scale", class: "custom-image d-block w-100",  alt: @recommendation.name %>
+          </div>
+        <% end %>
       <% else %>
         <div class="carousel-item active">
           <%= image_tag "#{@recommendation.recommendation_type}.png", class: "custom-image d-block w-100",  alt: @recommendation.name %>
         </div>
       <% end %>
     </div>
-    <%# TODO: check if there are more than 1 image attached %>
-    <%# && @recommendation.photos.length == 1 %>
-    <% if @recommendation.photo.attached? %>
+    <%# Show controls when more than 1 photo are attached %>
+    <% if @recommendation.photos.attached? && @recommendation.photos.length > 1 %>
       <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
         <div class="carousel-control-circle">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
