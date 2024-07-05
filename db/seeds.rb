@@ -28,10 +28,6 @@ Review.destroy_all
   address = Faker::Address.full_address
   date = Faker::Date.between(from: '2024-01-01', to: '2024-05-31')
 
-  # Fetch a random image URL from Unsplash
-  random_seed = SecureRandom.uuid
-  image_url = "https://source.unsplash.com/random/?restaurant&#{random_seed}"
-
   # Create a new recommendation record
   recommendation = Recommendation.create!(
     name: name,
@@ -42,7 +38,6 @@ Review.destroy_all
     recommendation_type: rand(0..8), # Assuming you have 9 types from 0 to 8
     price: rand(10.0..100.0).round(2),
     rating: rand(1.0..5.0).round(1),
-    image_url: image_url,
     created_at: date
   )
 
