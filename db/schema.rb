@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_05_092911) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_05_141308) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,6 +42,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_05_092911) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "likes", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "recommendation_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recommendation_id"], name: "index_likes_on_recommendation_id"
+    t.index ["user_id", "recommendation_id"], name: "index_likes_on_user_id_and_recommendation_id", unique: true
+    t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
   create_table "recommendations", force: :cascade do |t|
     t.string "name"
     t.bigint "user_id", null: false
@@ -55,6 +65,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_05_092911) do
     t.string "website_url"
     t.string "instagram_url"
     t.integer "price"
+    t.integer "likes_count", default: 0
     t.index ["user_id"], name: "index_recommendations_on_user_id"
   end
 
@@ -87,6 +98,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_05_092911) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "likes", "recommendations"
+  add_foreign_key "likes", "users"
   add_foreign_key "recommendations", "users"
   add_foreign_key "reviews", "recommendations"
   add_foreign_key "reviews", "users"
