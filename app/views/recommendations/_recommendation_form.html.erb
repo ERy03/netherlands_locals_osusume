@@ -13,9 +13,11 @@
           <%= f.input :instagram_url, label: "Instagram URL <span style='opacity: 0.5;'>(optional)</span>".html_safe %>
           <%= f.input :photos, as: :file, input_html: { multiple: true, accept: 'image/jpeg, image/png, image/heic, image/heif' } %>
           <% if recommendation.photos.attached? %>
-            <% recommendation.photos.each do |photo| %>
-              <%= cl_image_tag photo.key, width: 100, crop: "scale", class: "mb-3", alt: recommendation.name %>
-            <% end %>
+            <div class="d-flex gap-2 mb-3">
+              <% recommendation.photos.each do |photo| %>
+                <%= cl_image_tag photo.key, width: 100, crop: "scale", class: "object-fit-cover", style: "height: 100px", alt: recommendation.name %>
+              <% end %>
+            </div>
           <% end %>
           <%= f.input :visit_date, as: :string, label: 'Visit Date', input_html: { data: { controller: "datepicker" } } %>
           <%= f.submit "Create", class: 'btn btn-primary' %>
