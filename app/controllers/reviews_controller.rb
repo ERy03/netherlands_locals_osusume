@@ -72,7 +72,7 @@ class ReviewsController < ApplicationController
 
 
   def authorize_user!
-    unless @review.user == current_user
+    unless @review.user == current_user || current_user.is_admin
       redirect_to recommendation_path(@recommendation), alert: "You are not authorized to perform this action."
     end
   end
