@@ -1,16 +1,20 @@
-/* CSS to maintain aspect ratio */
 .card-img-container {
   position: relative;
+  overflow: hidden;
+}
+
+.card-img-container .carousel-item {
   height: 0;
   padding-top: 100%;
 }
 
-.card-img-container img {
+.card-img-container .carousel-item img {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  object-fit: cover; /* Ensure the image covers the area without stretching */
   border-radius: 12px;
   object-position: center;
 }
@@ -44,4 +48,31 @@
 
 .card :hover {
   cursor: pointer;
+}
+
+.profile-osusume .carousel-control-prev-icon,
+.profile-osusume .carousel-control-next-icon {
+  width: 0.6rem;
+  height: 0.6rem;
+}
+
+.profile-osusume .carousel-control-circle {
+  padding: 4px !important;
+}
+
+.profile-osusume .carousel-indicators button {
+  height: 8px;
+  width: 8px;
+}
+
+.home-osusume .carousel-control-prev-icon,
+.home-osusume .carousel-control-next-icon {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
+@media (max-width: 1024px) {
+  .home-osusume .carousel-control-circle {
+    padding: 4px !important;
+  }
 }

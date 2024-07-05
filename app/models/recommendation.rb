@@ -1,5 +1,5 @@
 class Recommendation < ApplicationRecord
-  has_one_attached :photo
+  has_many_attached :photos
   belongs_to :user
   has_many :reviews, dependent: :destroy
 
@@ -35,20 +35,32 @@ class Recommendation < ApplicationRecord
   validates :instagram_url, format: { with: /\Ahttps:\/\/.*instagram\.com/ }, allow_blank: true
   validates :visit_date, presence: true, comparison: { less_than_or_equal_to: Date.today }
   validates :recommendation_type, inclusion: { in: Recommendation.recommendation_types.keys }, presence: true
-
+  validates :photos, length: {maximum: 4, message: "count maximum is 4"}
   validate :correct_photo_mime_type, :photo_size_validation
 
   private
 
   def correct_photo_mime_type
-    if photo.attached? && !photo.content_type.in?(%w(image/jpeg image/png image/heic image/heif image/avif))
-      errors.add(:photo, 'must be a JPEG, PNG, HEIF or HEIC')
+    return unless photos.attached?
+
+    invalid_photos = photos.select do |photo|
+      !photo.content_type.in?(%w(image/jpeg image/png image/heic image/heif image/avif))
+    end
+
+    if invalid_photos.any?
+      errors.add(:photos, 'must be a JPEG, PNG, HEIF or HEIC')
     end
   end
 
   def photo_size_validation
-    if photo.attached? && photo.byte_size > 5.megabytes
-      errors.add(:photo, "should be less than 5MB")
+    return unless photos.attached?
+
+    large_photos = photos.select do |photo|
+      photo.byte_size > 5.megabytes
+    end
+
+    if large_photos.any?
+      errors.add(:photos, "should be less than 5MB")
     end
   end
 

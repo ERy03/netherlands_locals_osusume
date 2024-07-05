@@ -1,17 +1,50 @@
 <% content_for :meta_title, "#{DEFAULT_META["meta_product_name"]} - #{@recommendation.name}" %>
 <% content_for :meta_description, @recommendation.description %>
-<% if @recommendation.photo.attached? %>
-  <% content_for :meta_image, cl_image_path(@recommendation.photo.key,  width: 1200, height: 630, crop: "thumb") %>
+<% if @recommendation.photos.attached? %>
+  <% content_for :meta_image, cl_image_path(@recommendation.photos[0].key,  width: 1200, height: 630, crop: "thumb") %>
 <% end %>
 <div class="image-wrapper">
-  <% if @recommendation.photo.attached? %>
-    <%= cl_image_tag @recommendation.photo.key, width: 1000, crop: "scale", class: "object-fit-cover custom-image",  alt: @recommendation.name %>
-  <% else %>
-    <%= image_tag "#{@recommendation.recommendation_type}.png", class: "object-fit-cover custom-image",  alt: @recommendation.name %>
-  <% end %>
+  <%# Show indicators when more than 1 photo are attached %>
+  <div id="carouselExampleIndicators" class="carousel slide">
+    <% if @recommendation.photos.attached? && @recommendation.photos.length > 1  %>
+      <div class="carousel-indicators">
+        <% @recommendation.photos.each_with_index do |photo, index| %>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<%= index %>" class="<%= 'active' if index == 0 %>" aria-current="<%= 'true' if index == 0 %>" aria-label="Slide <%= index + 1 %>"></button>
+        <% end %>
+      </div>
+    <% end %>
+    <div class="carousel-inner">
+      <% if @recommendation.photos.attached? %>
+        <% @recommendation.photos.each_with_index do |photo, index| %>
+          <div class="carousel-item <%= 'active' if index == 0 %>">
+            <%= cl_image_tag photo.key, width: 1000, crop: "scale", class: "custom-image d-block w-100",  alt: @recommendation.name %>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="carousel-item active">
+          <%= image_tag "#{@recommendation.recommendation_type}.png", class: "custom-image d-block w-100",  alt: @recommendation.name %>
+        </div>
+      <% end %>
+    </div>
+    <%# Show controls when more than 1 photo are attached %>
+    <% if @recommendation.photos.attached? && @recommendation.photos.length > 1 %>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <div class="carousel-control-circle">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </div>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <div class="carousel-control-circle">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </div>
+      </button>
+    <% end %>
+  </div>
 </div>
 <%# Title with like and share %>
-<div class="content-container">
+<div class="content-container" data-controller="insert-in-reviews">
   <div class="d-flex flex-wrap justify-content-end">
     <div class="d-flex flex-grow-1 gap-3 align-items-center">
       <h1 class="mt-2"><%= @recommendation.name %></h1>
@@ -39,7 +72,7 @@
       <%= @recommendation.recommendation_type %></span>
   </p>
   <%# Ratings %>
-  <div class="d-flex gap-2 align-items-center mb-3">
+  <div class="d-flex gap-2 align-items-center mb-3" data-insert-in-reviews-target="ratingCount">
     <i class="fa-sharp fa-solid fa-star"></i>
     <% if @recommendation.reviews.count != 0 && !@recommendation.rating.nil? %>
       <p class="mb-0"><%= @recommendation.rating %></p>
@@ -96,7 +129,7 @@
   </section>
   <hr class="custom-divider">
   <%# Reviews %>
-  <section data-controller="insert-in-reviews">
+  <section>
     <div class="d-flex flex-row align-items-center justify-content-between mt-4 mb-4">
       <h3 class="mb-0">Comments <span class="review-count" data-insert-in-reviews-target="reviewCount">(<%= @reviews.count %>)</span></h3>
       <%# Show the add review button onyl if the current user did not create this recommendation %>

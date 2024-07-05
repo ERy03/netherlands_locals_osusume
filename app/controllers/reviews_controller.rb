@@ -1,4 +1,7 @@
 class ReviewsController < ApplicationController
+  before_action :set_review_and_recommendation, only: [:edit, :update, :destroy]
+  before_action :authorize_user!, only: [:edit, :update, :destroy]
+
   def create
     @recommendation = Recommendation.find(params[:recommendation_id])
     # Checks if user has already written a review
@@ -30,10 +33,56 @@ class ReviewsController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+     begin
+      ActiveRecord::Base.transaction do
+        if @review.update(review_params)
+          update_recommendation_rating
+          redirect_to recommendation_path(@recommendation), notice: "Review was successfully updated."
+        else
+          render :edit, status: :unprocessable_entity
+        end
+      end
+    rescue => e
+      redirect_to edit_review_path(@review), alert: 'An unexpected error occurred. Please try again later.'
+    end
+  end
+
+  def destroy
+    begin
+      ActiveRecord::Base.transaction do
+        @review.destroy!
+        update_recommendation_rating
+      end
+      redirect_to recommendation_path(@recommendation), status: :see_other, notice: "Review was successfully deleted."
+      rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotDestroyed => e
+      redirect_to recommendation_path(@recommendation), alert: "Failed to delete review: #{e.message}"
+    end
+  end
+
   private
 
+  def set_review_and_recommendation
+    @review = Review.find(params[:id])
+    @recommendation = @review.recommendation
+  end
+
+
+  def authorize_user!
+    unless @review.user == current_user
+      redirect_to recommendation_path(@recommendation), alert: "You are not authorized to perform this action."
+    end
+  end
+
   def update_recommendation_rating
-    @recommendation.update!(rating: @recommendation.reviews.average(:rating).round(2))
+    if @recommendation.reviews.any?
+      @recommendation.update!(rating: @recommendation.reviews.average(:rating).round(2))
+    else
+      @recommendation.update!(rating: nil)
+    end
   end
 
   def review_params

@@ -51,10 +51,10 @@ class RecommendationsController < ApplicationController
   end
 
   def update
-    if recommendation_params[:photo]
-      # Check if it already has a photo
-      if @recommendation.photo.attached?
-        @recommendation.photo.purge
+    if recommendation_params[:photos]
+      # Check if it already has photos
+      if @recommendation.photos.attached?
+        @recommendation.photos.purge
       end
     end
     if @recommendation.update(recommendation_params)
@@ -65,8 +65,8 @@ class RecommendationsController < ApplicationController
   end
 
   def destroy
-    if @recommendation.photo.attached?
-      @recommendation.photo.purge
+    if @recommendation.photos.attached?
+      @recommendation.photos.purge
     end
 
     @recommendation.destroy
@@ -76,7 +76,7 @@ class RecommendationsController < ApplicationController
   private
 
   def recommendation_params
-    params.require(:recommendation).permit(:name, :description, :address, :visit_date, :recommendation_type, :website_url, :instagram_url, :price, :photo)
+    params.require(:recommendation).permit(:name, :description, :address, :visit_date, :recommendation_type, :website_url, :instagram_url, :price, photos: [])
   end
 
   def set_recommendation
