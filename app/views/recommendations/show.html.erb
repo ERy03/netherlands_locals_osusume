@@ -49,7 +49,7 @@
     <div class="d-flex flex-grow-1 gap-3 align-items-center">
       <h1 class="mt-2"><%= @recommendation.name %></h1>
       <%# Edit button %>
-      <% if @is_created_by_current_user %>
+      <% if @is_created_by_current_user || @is_admin %>
         <%= link_to edit_recommendation_path, class: "text-decoration-none text-black-50 fs-5" do %>
           <i class="bi bi-pencil"></i>
         <% end %>
@@ -119,7 +119,7 @@
       <%= @recommendation.visit_date %>
     </div>
     <%# Delete %>
-    <% if @is_created_by_current_user %>
+    <% if @is_created_by_current_user || @is_admin %>
       <div class="d-flex justify-content-end align-items-center">
         <%= link_to recommendation_path, data: {turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this Osusume?"}, class: "text-decoration-none text-danger" do %>
           <i class="fa-regular fa-trash-can"></i>
