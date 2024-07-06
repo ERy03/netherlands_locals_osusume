@@ -7,4 +7,8 @@ class ProfileController < ApplicationController
   def reviews
     @reviews = current_user.reviews.includes(:recommendation)
   end
+
+  def likes
+    @likes = current_user.likes.includes(:recommendation)
+  end
 end

@@ -1,5 +1,5 @@
 <div class="col">
-  <div class="card h-100" data-controller="icons">
+  <div class="card h-100" data-controller="icons" data-icons-liked-value="<%= user_signed_in? && current_user.likes.exists?(recommendation: recommendation) %>" data-icons-recommendation-id-value="<%= recommendation.id %>">
     <div id="carousel<%= recommendation.id %>" class="carousel slide card-img-container">
       <%# Show indicators when more than 1 photo are attached %>
       <% if recommendation.photos.attached? && recommendation.photos.length > 1 %>
@@ -39,7 +39,7 @@
       <% end %>
       <%# TODO: add click functionality to add to favorites %>
       <a class="text-decoration-none">
-        <i data-icons-target="heartIcon" class="fa-sharp fa-regular fa-heart fs-5 position-absolute top-3 end-3 z-2" data-action="mouseover->icons#hover mouseout->icons#unhover click->icons#click"></i>
+        <i data-icons-target="heartIcon" class="fa-sharp fa-heart fs-5 position-absolute top-3 end-3 z-2 <%= user_signed_in? && current_user.likes.exists?(recommendation: recommendation) ? 'fa-solid' : 'fa-regular' %>" data-action="click->icons#click"></i>
       </a>
     </div>
     <div class="card-body">
