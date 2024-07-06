@@ -56,9 +56,9 @@
       <% end %>
     </div>
     <%# Like and Share %>
-    <div class="d-flex justify-content-end gap-3 align-items-center" data-controller="icons">
+    <div class="d-flex justify-content-end gap-3 align-items-center" data-controller="icons" data-icons-liked-value="<%= user_signed_in? && current_user.likes.exists?(recommendation: @recommendation) %>" data-icons-recommendation-id-value="<%= @recommendation.id %>">
       <a class="text-decoration-none text-black-50">
-        <i data-icons-target="heartIcon" class="fa-sharp fa-regular fa-heart" data-action="mouseover->icons#hover mouseout->icons#unhover click->icons#click"></i>
+        <i data-icons-target="heartIcon" class="fa-sharp <%= user_signed_in? && current_user.likes.exists?(recommendation: @recommendation) ? 'fa-solid' : 'fa-regular' %> fa-heart" data-action="click->icons#click"></i>
       </a>
       <%# TODO: test share is working %>
       <a class="text-decoration-none text-black-50">
