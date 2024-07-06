@@ -82,7 +82,7 @@ class RecommendationsController < ApplicationController
   def set_recommendation
     @recommendation = Recommendation.find(params[:id])
     @is_created_by_current_user = @recommendation.user == current_user
-    @is_admin = current_user.is_admin
+    @is_admin = user_signed_in? && current_user.is_admin
   end
 
   def authorize_user!
@@ -94,7 +94,7 @@ class RecommendationsController < ApplicationController
   def sort_recommendations(recommendations, sort)
     case sort
     when "top_rated"
-      recommendations.order(rating: :desc)
+      recommendations.order(Arel.sql('COALESCE(rating, 0) DESC'))
     when "low_rated"
       recommendations.order(rating: :asc)
     when "newly_added"
