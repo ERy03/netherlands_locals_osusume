@@ -2,6 +2,7 @@ class Recommendation < ApplicationRecord
   has_many_attached :photos
   belongs_to :user
   has_many :reviews, dependent: :destroy
+  has_many :likes, dependent: :destroy
 
   before_validation :set_default_values, on: :create
 

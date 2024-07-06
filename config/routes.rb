@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users
   get 'profile/reviews', to: 'profile#reviews', as: 'user_reviews'
+  get 'profile/likes', to: 'profile#likes', as: 'user_likes'
   get 'profile/:id', to: 'profile#show', as: 'profile'
   resources :recommendations do
+    resource :like, only: [:create, :destroy]
     resources :reviews, only: [:create]
   end
   resources :reviews, only: [:edit, :update, :destroy]
