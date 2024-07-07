@@ -12,7 +12,7 @@
         <% end %>
         <%= link_to review.user.user_name, profile_path(review.user), class: "underline-on-hover mb-0"  %>
         <%# Update and Delete %>
-        <% if review.user == current_user || current_user.is_admin %>
+        <% if current_user && (review.user == current_user || current_user.is_admin) %>
           <div class="d-flex gap-2 align-items">
             <%= link_to edit_review_path(review), class: "text-decoration-none text-black-50" do %>
               <i class="bi bi-pencil"></i>
