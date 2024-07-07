@@ -97,14 +97,14 @@
     <% if @recommendation.website_url.present? %>
       <div class="d-flex gap-2 align-items-center">
         <i class="fa-solid fa-earth-europe"></i>
-        <%= link_to @recommendation.website_url, @recommendation.website_url, :target => "_blank", class: "underline-on-hover" %>
+        <%= link_to safe_url(@recommendation.website_url), safe_url(@recommendation.website_url), :target => "_blank", class: "underline-on-hover" %>
       </div>
     <% end %>
     <%# Instagram %>
     <% if @recommendation.instagram_url.present? %>
       <div class="d-flex gap-2 align-items-center">
         <i class="fa-brands fa-instagram"></i>
-        <%= link_to @recommendation.instagram_url, @recommendation.instagram_url, :target => "_blank", class: "underline-on-hover"%>
+        <%= link_to safe_url(@recommendation.instagram_url), safe_url(@recommendation.instagram_url), :target => "_blank", class: "underline-on-hover"%>
       </div>
     <% end %>
   </section>
