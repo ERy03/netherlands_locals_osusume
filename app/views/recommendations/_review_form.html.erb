@@ -1,6 +1,6 @@
 <%= simple_form_for [recommendation, review], data: {insert_in_reviews_target: "form", action: "submit->insert-in-reviews#send"}, remote: true do |f| %>
   <div class="mb-3">
-    <%= f.input :text, as: :text, label: 'Review', input_html: { class: 'form-control' } %>
+    <%= f.input :text, as: :text, label: 'Comment', input_html: { class: 'form-control' } %>
   </div>
   <div class="mb-3">
     <%= f.input :rating, as: :select, selected: 5, collection: (1..5), required: true, label: "Rating", input_html: { data: { controller: "star-rating" } } %>
