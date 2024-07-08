@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  rescue_from ActiveRecord::RecordNotFound, with: :render_404
+  rescue_from ActionController::RoutingError, with: :render_404
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
 
@@ -12,5 +14,15 @@ class ApplicationController < ActionController::Base
 
   def default_url_options
     { host: ENV["DOMAIN"] || "localhost:3000" }
+  end
+
+  private
+
+  def render_404
+    render 'errors/not_found', status: :not_found
+  end
+
+  def render_403
+    render 'errors/forbidden', status: :forbidden
   end
 end
