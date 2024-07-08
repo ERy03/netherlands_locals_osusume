@@ -1,0 +1,15 @@
+<div class="container-fluid">
+  <div class="d-flex justify-content-center">
+    <%= image_tag "osusume_logo.png", class: "responsive-img"%>
+  </div>
+  <div data-controller="refresh-list">
+    <%= render "search_bar", recommendations: @recommendations %>
+    <div class="order d-flex gap-2 justify-content-end">
+      <%= render "shared/sort" %>
+      <%= render "shared/filter" %>
+    </div>
+    <div class="home-osusume" data-refresh-list-target="list">
+      <%= render "list", recommendations: @recommendations, recommendation_count: @recommendation_count %>
+    </div>
+  </div>
+</div>

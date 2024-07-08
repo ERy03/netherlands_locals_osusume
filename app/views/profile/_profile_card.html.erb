@@ -1,0 +1,25 @@
+<div class="user-card shadow-sm">
+  <div class="user-card-body d-flex gap-4">
+    <div class="d-flex flex-column gap-3 align-items-center justify-content-center">
+      <div class="avatar-circle">
+        <span class="initial">
+          <%= user_initial(@user) %>
+        </span>
+      </div>
+      <div class="title-width">
+        <h5 class="mb-0 text-truncate"><%= @user.user_name.capitalize %></h5>
+      </div>
+    </div>
+    <div class="d-flex flex-column flex-grow-1 justify-content-around">
+      <div>
+        <h6 class="mb-0"><%= @user.recommendations.count %></h6>
+        <p class="text-muted fs-small mb-0">Osusume</p>
+      </div>
+      <hr class="custom-divider">
+      <div>
+        <h6 class="mb-0"><%= @user.created_at.strftime('%F') %></h6>
+        <p class="text-muted fs-small mb-0">Member since</p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,165 @@
+<% content_for :meta_title, "#{DEFAULT_META["meta_product_name"]} - #{@recommendation.name}" %>
+<% content_for :meta_description, @recommendation.description %>
+<% if @recommendation.photos.attached? %>
+  <% content_for :meta_image, cl_image_path(@recommendation.photos[0].key,  width: 1200, height: 630, crop: "thumb") %>
+<% end %>
+<div class="image-wrapper">
+  <%# Show indicators when more than 1 photo are attached %>
+  <div id="carouselExampleIndicators" class="carousel slide">
+    <% if @recommendation.photos.attached? && @recommendation.photos.length > 1  %>
+      <div class="carousel-indicators">
+        <% @recommendation.photos.each_with_index do |photo, index| %>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<%= index %>" class="<%= 'active' if index == 0 %>" aria-current="<%= 'true' if index == 0 %>" aria-label="Slide <%= index + 1 %>"></button>
+        <% end %>
+      </div>
+    <% end %>
+    <div class="carousel-inner">
+      <% if @recommendation.photos.attached? %>
+        <% @recommendation.photos.each_with_index do |photo, index| %>
+          <div class="carousel-item <%= 'active' if index == 0 %>">
+            <%= cl_image_tag photo.key, width: 1000, crop: "scale", class: "custom-image d-block w-100",  alt: @recommendation.name %>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="carousel-item active">
+          <%= image_tag "#{@recommendation.recommendation_type}.png", class: "custom-image d-block w-100",  alt: @recommendation.name %>
+        </div>
+      <% end %>
+    </div>
+    <%# Show controls when more than 1 photo are attached %>
+    <% if @recommendation.photos.attached? && @recommendation.photos.length > 1 %>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <div class="carousel-control-circle">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </div>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <div class="carousel-control-circle">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </div>
+      </button>
+    <% end %>
+  </div>
+</div>
+<%# Title with like and share %>
+<div class="content-container" data-controller="insert-in-reviews">
+  <div class="d-flex flex-wrap justify-content-end">
+    <div class="d-flex flex-grow-1 gap-3 align-items-center">
+      <h1 class="mt-2"><%= @recommendation.name %></h1>
+      <%# Edit button %>
+      <% if @is_created_by_current_user || @is_admin %>
+        <%= link_to edit_recommendation_path, class: "text-decoration-none text-black-50 fs-5" do %>
+          <i class="bi bi-pencil"></i>
+        <% end %>
+      <% end %>
+    </div>
+    <%# Like and Share %>
+    <div class="d-flex justify-content-end gap-3 align-items-center" data-controller="icons" data-icons-liked-value="<%= user_signed_in? && current_user.likes.exists?(recommendation: @recommendation) %>" data-icons-recommendation-id-value="<%= @recommendation.id %>">
+      <a class="text-decoration-none text-black-50">
+        <i data-icons-target="heartIcon" class="fa-sharp <%= user_signed_in? && current_user.likes.exists?(recommendation: @recommendation) ? 'fa-solid' : 'fa-regular' %> fa-heart" data-action="click->icons#click"></i>
+      </a>
+      <%# TODO: test share is working %>
+      <a class="text-decoration-none text-black-50">
+        <i data-icons-target="shareIcon" class="fa-solid fa-arrow-up-from-bracket" data-action="click->icons#share"></i>
+      </a>
+    </div>
+  </div>
+  <%# Pill with recommendation type %>
+  <p>
+    <span class="badge rounded-pill fw-normal mb-0">
+      <%= @recommendation.recommendation_type %></span>
+  </p>
+  <%# Ratings %>
+  <div class="d-flex gap-2 align-items-center mb-3" data-insert-in-reviews-target="ratingCount">
+    <i class="fa-sharp fa-solid fa-star"></i>
+    <% if @recommendation.reviews.count != 0 && !@recommendation.rating.nil? %>
+      <p class="mb-0"><%= @recommendation.rating %></p>
+    <% else %>
+      <p class="mb-0">No reviews yet</p>
+    <% end %>
+  </div>
+  <hr class="custom-divider">
+  <%# Section with address, price, web url, and instagram url %>
+  <section class="d-flex flex-column gap-3 mt-3 mb-3">
+    <%# Address %>
+    <div class="d-flex gap-2 align-items-center">
+      <i class="fa-solid fa-location-dot"></i>
+      <%= @recommendation.address %>
+    </div>
+    <%# Price %>
+    <div class="d-flex gap-2 align-items-center">
+      <i class="bi bi-cash-stack"></i>
+      <%= @recommendation.price %>
+    </div>
+    <%# Web %>
+    <% if @recommendation.website_url.present? %>
+      <div class="d-flex gap-2 align-items-center">
+        <i class="fa-solid fa-earth-europe"></i>
+        <%= link_to safe_url(@recommendation.website_url), safe_url(@recommendation.website_url), :target => "_blank", class: "underline-on-hover" %>
+      </div>
+    <% end %>
+    <%# Instagram %>
+    <% if @recommendation.instagram_url.present? %>
+      <div class="d-flex gap-2 align-items-center">
+        <i class="fa-brands fa-instagram"></i>
+        <%= link_to safe_url(@recommendation.instagram_url), safe_url(@recommendation.instagram_url), :target => "_blank", class: "underline-on-hover"%>
+      </div>
+    <% end %>
+  </section>
+  <hr class="custom-divider">
+  <%# Section with description, user name with visit date and delete button %>
+  <section class="mb-4 d-flex flex-column gap-3">
+    <%# Description %>
+    <p class="mt-3"><%= @recommendation.description %></p>
+    <%# User and visit date %>
+    <div class="d-flex justify-content-end gap-2 align-items-center">
+      <%= link_to @recommendation.user.user_name, profile_path(@recommendation.user), class: "underline-on-hover"  %>
+      <%= @recommendation.visit_date %>
+    </div>
+    <%# Delete %>
+    <% if @is_created_by_current_user || @is_admin %>
+      <div class="d-flex justify-content-end align-items-center">
+        <%= link_to recommendation_path, data: {turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this Osusume?"}, class: "text-decoration-none text-danger" do %>
+          <i class="fa-regular fa-trash-can"></i>
+        <% end %>
+      </div>
+    <% end %>
+  </section>
+  <hr class="custom-divider">
+  <%# Reviews %>
+  <section>
+    <div class="d-flex flex-row align-items-center justify-content-between mt-4 mb-4">
+      <h3 class="mb-0">Comments <span class="review-count" data-insert-in-reviews-target="reviewCount">(<%= @reviews.count %>)</span></h3>
+      <%# Show the add review button onyl if the current user did not create this recommendation %>
+      <% if !@is_created_by_current_user %>
+        <button class="border-0 p-0 bg-transparent text-decoration-none text-black-50" data-action="click->insert-in-reviews#openModal"><i class="fa-regular fa-pen-to-square"></i></button>
+      <% end %>
+      <%# modal %>
+      <div class="modal" data-insert-in-reviews-target="modal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Add Review</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <%# error message %>
+              <div data-insert-in-reviews-target="error" class="alert alert-danger d-none fade show" role="alert"></div>
+              <%# form %>
+              <%= render partial: "recommendations/review_form", locals: { recommendation: @recommendation, review: @review } %>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary" data-action="insert-in-reviews#send">Submit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div data-insert-in-reviews-target="reviews">
+      <%= render "review_list", reviews: @reviews  %>
+    </div>
+  </section>
+</div>

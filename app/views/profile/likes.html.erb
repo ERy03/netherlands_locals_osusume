@@ -1,0 +1,10 @@
+<div class="content-container">
+  <div class="row">
+    <div class="col-sm-8 col-12">
+      <h2 class="my-5 fw-bold">Liked by you</h2>
+      <% @likes.each do |like|  %>
+        <%= render "like_tile", like: like %>
+      <% end %>
+    </div>
+  </div>
+</div>

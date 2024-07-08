@@ -1,0 +1,14 @@
+<div class="d-flex gap-3 align-items-center">
+  <%= link_to recommendation_path(like.recommendation), class: "text-decoration-none h-fit-content", style: "height: fit-content;" do %>
+    <% if like.recommendation.photos.attached? %>
+      <%= cl_image_tag like.recommendation.photos[0].key, width: 200, crop: "scale", class: "object-fit-cover review-tile", alt: like.recommendation.name %>
+    <% else %>
+      <%= image_tag "#{like.recommendation.recommendation_type}.png", class: "object-fit-cover bg-white review-tile" %>
+    <% end %>
+  <% end %>
+  <div class="d-flex flex-column">
+    <%# title %>
+    <%= link_to like.recommendation.name, recommendation_path(like.recommendation), class: "underline-on-hover fw-medium"  %>
+  </div>
+</div>
+<hr class="custom-divider my-4">
