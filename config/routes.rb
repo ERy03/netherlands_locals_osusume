@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   get 'profile/reviews', to: 'profile#reviews', as: 'user_reviews'
   get 'profile/likes', to: 'profile#likes', as: 'user_likes'
   get 'profile/:id', to: 'profile#show', as: 'profile'
+  match "/404", to: "errors#not_found", via: :all
+  match "/500", to: "errors#internal_server_error", via: :all
   resources :recommendations do
     resource :like, only: [:create, :destroy]
     resources :reviews, only: [:create]

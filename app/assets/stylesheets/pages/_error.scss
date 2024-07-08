@@ -1,0 +1,24 @@
+.error-page {
+  height: 80vh;
+}
+
+.error-page .lottie-not-found {
+  height: 50vw;
+  width: 50vw;
+}
+
+.error-page .lottie-internal-error {
+  height: 35vw;
+  width: 35vw;
+}
+
+@media (max-width: 576px) {
+  .error-page .lottie-not-found {
+    height: 100vw;
+    width: 100vw;
+  }
+  .error-page .lottie-internal-error {
+    height: 75vw;
+    width: 75vw;
+  }
+}
