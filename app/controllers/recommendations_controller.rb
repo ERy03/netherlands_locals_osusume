@@ -96,7 +96,7 @@ class RecommendationsController < ApplicationController
     when "top_rated"
       recommendations.order(Arel.sql('COALESCE(rating, 0) DESC'))
     when "low_rated"
-      recommendations.order(rating: :asc)
+      recommendations.order(Arel.sql('COALESCE(rating, 0) ASC'))
     when "newly_added"
       recommendations.order(created_at: :desc)
     when "old"
