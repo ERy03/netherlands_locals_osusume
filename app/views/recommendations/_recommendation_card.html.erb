@@ -37,6 +37,11 @@
           </div>
         </button>
       <% end %>
+      <% if recommendation.created_at >= 1.week.ago%>
+        <span class="new-badge badge rounded-pill position-absolute top-3 start-3 text-bg-light <%= current_page?(recommendations_path) ? 'px-3 py-2 fw-semibold' : 'fw-light' %>">
+          New
+        </span>
+      <% end %>
       <%# TODO: add click functionality to add to favorites %>
       <a class="text-decoration-none">
         <i data-icons-target="heartIcon" class="fa-sharp fa-heart fs-5 position-absolute top-3 end-3 z-2 <%= user_signed_in? && current_user.likes.exists?(recommendation: recommendation) ? 'fa-solid' : 'fa-regular' %>" data-action="click->icons#click"></i>
