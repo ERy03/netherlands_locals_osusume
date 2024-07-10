@@ -51,13 +51,20 @@ class RecommendationsController < ApplicationController
   end
 
   def update
-    if recommendation_params[:photos]
-      # Check if it already has photos
+    if remove_current_photos(recommendation_params[:photos])
+      # Check if it already has photos and purge them
       if @recommendation.photos.attached?
         @recommendation.photos.purge
       end
     end
-    if @recommendation.update(recommendation_params)
+
+    if @recommendation.update(recommendation_params.except(:photos))
+      # Attach new photos if provided
+      if recommendation_params[:photos].present? && recommendation_params[:photos].any?(&:present?)
+        recommendation_params[:photos].each do |photo|
+          @recommendation.photos.attach(photo)
+        end
+      end
       redirect_to recommendation_path(@recommendation), notice: "Osusume was successfully updated."
     else
       render :edit, status: :unprocessable_entity
@@ -74,6 +81,13 @@ class RecommendationsController < ApplicationController
   end
 
   private
+
+
+  def remove_current_photos(photos)
+    return false unless photos # Handle nil case
+
+    photos.any? { |photo| !photo.blank? }
+  end
 
   def recommendation_params
     params.require(:recommendation).permit(:name, :description, :address, :visit_date, :recommendation_type, :website_url, :instagram_url, :price, photos: [])
